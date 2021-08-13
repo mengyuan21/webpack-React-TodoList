@@ -1,0 +1,14 @@
+.footer-text p{
+    position: relative;
+    top: 40px;
+    font-size: 12px;
+    text-align: center;
+    align-self: center;
+    /* background-color: blue; */
+}
+
+.footer-text a{
+    font-weight: 500;
+    color: rgb(141, 138, 138);
+    text-decoration: none;
+}
