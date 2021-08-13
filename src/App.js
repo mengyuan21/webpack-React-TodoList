@@ -60,6 +60,28 @@ function App() {
     setDisplayTodos(newTodos)
   }
 
+  //allToComplete
+  function allToComplete(isChecked) { 
+      console.log(isChecked)
+      if(isChecked) {
+        const newTodos = todos.map(function(todo) {
+            todo.complete = true;
+            return todo;
+        }) 
+        console.log(newTodos)
+        setTodos(newTodos)
+        setDisplayTodos(newTodos)
+      } else{
+        const newTodos = todos.map(function(todo) {
+            todo.complete = false;
+            return todo;
+        })
+        console.log(newTodos)
+        setTodos(newTodos)
+        setDisplayTodos(newTodos)
+      }
+  }
+
   function getAllTodos() {
     const newTodos = [...todos]
     setDisplayTodos(newTodos)
@@ -94,6 +116,7 @@ function App() {
       <TodoInput 
       todoNameRef={todoNameRef} 
       handleSubmit={handleSubmit}
+      allToComplete={allToComplete}
       />
       <TodoItems 
       displayTodos={displayTodos} 
