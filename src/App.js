@@ -1,7 +1,7 @@
 import './App.css';
 import React, {useState, useRef} from 'react';
 import Header from './Components/Header/Header';
-// import TodoItems from './Components/TodoItems/TodoItems';
+import TodoItems from './Components/TodoItems/TodoItems';
 import Footer from './Components/Footer/Footer';
 import TodoInput from './Components/TodoInput/TodoInput';
 import TodoFilter from './Components/TodoFilter/TodoFilter';
@@ -89,13 +89,13 @@ function App() {
       todoNameRef={todoNameRef} 
       handleSubmit={handleSubmit}
       />
-      {/* <TodoItems 
+      <TodoItems 
       displayTodos={displayTodos} 
       toggleTodo={toggleTodo} 
       deleteTodo={deleteTodo} 
       ref={todoNameRef}
       editTodoItem={editTodoItem}
-      /> */}
+      />
       <TodoFilter 
       todos={todos}
       getAllTodos={getAllTodos}

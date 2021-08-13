@@ -1,0 +1,58 @@
+.todo-item {
+    position: relative;
+    max-height: 40px;
+    width: 100%;
+    display: flex;
+    padding: 15px 15px 15px 60px;
+    line-height: 1.2;
+    font-size: 24px;
+    font-weight: 200;
+    width: 502px;
+    box-shadow: inset 1px 0px 0px 0px rgb(20% 0 0 / 20%);
+    /* box-sizing: border-box; */
+    border-bottom: 1px solid rgb(233, 231, 231);
+    background-color: white;
+
+}
+
+.checkbox {
+   position: absolute;
+   left: 30px;
+   top: 26px;
+}
+
+.todo {
+  position: relative;
+  text-align: start;
+  bottom: 20px;
+  left: 10px;
+  min-width: 400px;
+  word-break: break-all;
+  display: block;
+  font-size: 24px;
+  color: #7c7a7a;
+  background-color: blue;
+}
+
+.todo:focus {
+    outline: none;
+}
+
+.todo-delete {
+   position: absolute; 
+   top: 20px; 
+   right: 10px;
+   margin-right: 10px;
+   color: white;
+   background-color: white;
+   font-size: 25px;
+   border-width: 0px;
+}
+
+.todo-item:hover .todo-delete {
+    position: absolute;  
+    right: 10px; 
+    border-width: 0;
+    color: rgb(199, 131, 131);
+    background-color: white;
+}
