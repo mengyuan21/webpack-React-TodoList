@@ -17,11 +17,12 @@ function App() {
   function handleAddTodo () {
     const name = todoNameRef.current.value;
     if(name === '') return
+    const id = Date.now()
     setTodos(prevTodos => {
-      return [...prevTodos, {id:Date.now(), name: name, complete:false}]
+      return [...prevTodos, {id:id, name: name, complete:false}]
     })
     setDisplayTodos(prevTodos => {
-      return [...prevTodos, {id:Date.now(), name: name, complete:false}]
+      return [...prevTodos, {id:id, name: name, complete:false}]
     })
     todoNameRef.current.value = null;
   }
@@ -43,7 +44,10 @@ function App() {
   //标记todo完成
   function toggleTodo(id) {
     const newTodos = [...todos];
-    const todoitem = newTodos.find(todo => todo.id === id)
+    console.log(todos)
+    console.log(newTodos)
+    const todoitem = todos.find(todo => todo.id === id)
+    console.log(todoitem)
     todoitem.complete = !todoitem.complete
     setTodos(newTodos)
     setDisplayTodos(newTodos)
@@ -71,16 +75,18 @@ function App() {
     setDisplayTodos(newTodos)
   }
 
-  function editTodoItem() {
+  function editTodoItem(id) {
     const name = todoNameRef.current.value;
     if (name === '') return
-    setTodos(prevTodos => {
-      return[ ...prevTodos, {id:Date.now(), name: name, complete:false}]
+    setTodos(prevTodos => { 
+      return[ ...prevTodos, {id:id, name: name, complete:false}]
     })
     setDisplayTodos(prevTodos => {
-      return[ ...prevTodos, {id:Date.now(), name: name, complete:false}]
+      return[ ...prevTodos, {id:id, name: name, complete:false}]
     })
   }
+
+
 
   return (
     <div className="App">
@@ -106,7 +112,6 @@ function App() {
       <Footer />
     </div>
   );
-
 }
 
 export default App;
