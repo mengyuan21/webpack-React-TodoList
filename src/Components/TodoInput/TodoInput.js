@@ -1,12 +1,19 @@
 import React from 'react';
 import "./TodoInput.css";
 
-export default function TodoInput({todoNameRef, handleSubmit, allToComplete}) {
+export default function TodoInput({ todos,todoNameRef, handleSubmit, allToComplete}) {
+
 
     function handleAllToComplete(e) {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         allToComplete(value)
+    }
+
+    const ischecked = () => {
+        if( todos.filter( todo => !todo.complete).length === 0 && todos.length !== 0)
+           {return 'checked'} 
+        else return'unchecked'
     }
 
     return (

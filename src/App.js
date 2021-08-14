@@ -69,8 +69,8 @@ function App() {
     setDisplayTodos(newTodos)
   }
 
-  //allToComplete
-  function allToComplete(isChecked) { 
+  //全部标记已完成/未完成
+  function allToComplete(isChecked) {
       if(isChecked) {
         const newTodos = todos.map((todo)=> {
             todo.complete = true;
@@ -118,6 +118,7 @@ function App() {
     <div className="App">
       <Header />
       <TodoInput 
+      todos={todos}
       todoNameRef={todoNameRef} 
       handleSubmit={handleSubmit}
       allToComplete={allToComplete}

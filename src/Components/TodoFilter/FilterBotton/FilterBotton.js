@@ -10,6 +10,7 @@ export default function FilterBotton({getAllTodos, getActiveTodos, getCompletedT
         background: transparent;
         outline-width: 0px;
         margin-right: 15px;
+        margin-top:8px;
         border-color: white;
         color: rgb(161, 159, 159);
         border-radius:5px;
@@ -19,7 +20,6 @@ export default function FilterBotton({getAllTodos, getActiveTodos, getCompletedT
         border-color: rgb(216, 144, 156);
         }
     `;
-
 
     return (
         <div className="filter-buttons" >
