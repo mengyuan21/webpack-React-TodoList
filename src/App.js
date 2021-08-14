@@ -98,7 +98,7 @@ function App() {
     setDisplayTodos(newTodos)
   }
 
-  function getCompletedTodos() {
+  function getCompletedTodos () {
     const newTodos = todos.filter(todo => todo.complete)
     setDisplayTodos(newTodos)
   }

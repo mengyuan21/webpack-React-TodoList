@@ -1,5 +1,7 @@
 import React from 'react';
+import FilterBotton from './FilterBotton/FilterBotton';
 import "./TodoFilter.css";
+
 
 export default function TodoFilter({todos, getAllTodos, getActiveTodos, getCompletedTodos, handleClearCompleted}) {
     return (
@@ -8,11 +10,11 @@ export default function TodoFilter({todos, getAllTodos, getActiveTodos, getCompl
                 {todos.filter(todo => !todo.complete).length} left to do
             </div>
 
-            <div className="filter-buttons" >
-                <button className="filter-button" id='all' onClick={getAllTodos} > All </button>
-                <button className="filter-button" id='active' onClick={getActiveTodos} > Active </button>
-                <button className="filter-button" id='completed' onClick={getCompletedTodos} > Completed </button>
-            </div>
+            <FilterBotton 
+            getAllTodos={getAllTodos} 
+            getActiveTodos={getActiveTodos}
+            getCompletedTodos={getCompletedTodos}
+            />
 
             <button className="clear-completed" onClick={handleClearCompleted} > Clear Completed </button>
         </div>
