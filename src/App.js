@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import Header from './Components/Header/Header';
 import TodoItems from './Components/TodoItems/TodoItems';
 import Footer from './Components/Footer/Footer';
@@ -7,12 +7,32 @@ import TodoInput from './Components/TodoInput/TodoInput';
 import TodoFilter from './Components/TodoFilter/TodoFilter';
 
 
+
+
+const TODOS_LOCAL_STORAGE_KEY= 'todoList.todos';
+const DISPLAYTODOS_LOCAL_STORAGE_KEY ='todolist.displayTodos.';
+
 function App() {
 
   const [todos, setTodos] = useState([]);
   const [displayTodos, setDisplayTodos] = useState(todos)
-  const [checkBox, setCheckBox] = useState(false)
+  // const [checkBox, setCheckBox] = useState(false)
   const todoNameRef = useRef();
+
+  //local.storage: todos
+  //set: 每次更新都需要set一次，因此dependency为：[todos]
+  useEffect(()=> {
+   console.log('changed')
+   localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
+  }, 
+  [todos])
+
+  //get: 只get一次，因此dependency为：[]，因为[]永远不变
+  useEffect(()=> {
+    const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
+    if(storedTodos) setTodos(storedTodos) 
+  }, [])
+
 
   //添加todo
   function handleAddTodo () {
