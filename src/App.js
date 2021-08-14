@@ -11,6 +11,7 @@ function App() {
 
   const [todos, setTodos] = useState([]);
   const [displayTodos, setDisplayTodos] = useState(todos)
+  const [checkBox, setCheckBox] = useState(false)
   const todoNameRef = useRef();
 
   //添加todo
@@ -44,11 +45,19 @@ function App() {
   //标记todo完成
   function toggleTodo(id) {
     const newTodos = [...todos];
-    console.log(todos)
-    console.log(newTodos)
-    const todoitem = todos.find(todo => todo.id === id)
-    console.log(todoitem)
+    const todoitem = newTodos.find(todo => todo.id === id)
     todoitem.complete = !todoitem.complete
+    // let isAll = 0;
+    // todos.map(function(todo) {
+    //     if(todo.complete) isAll++
+    //     return todo;
+    // }) 
+    // if(isAll===todos.length) {
+    //     checkBox = true
+    // }else {
+    //     checkBox = false   
+    // }
+    // setCheckBox(checkBox)
     setTodos(newTodos)
     setDisplayTodos(newTodos)
   }
@@ -62,21 +71,18 @@ function App() {
 
   //allToComplete
   function allToComplete(isChecked) { 
-      console.log(isChecked)
       if(isChecked) {
-        const newTodos = todos.map(function(todo) {
+        const newTodos = todos.map((todo)=> {
             todo.complete = true;
             return todo;
         }) 
-        console.log(newTodos)
         setTodos(newTodos)
         setDisplayTodos(newTodos)
       } else{
-        const newTodos = todos.map(function(todo) {
+        const newTodos = todos.map((todo) => {
             todo.complete = false;
             return todo;
         })
-        console.log(newTodos)
         setTodos(newTodos)
         setDisplayTodos(newTodos)
       }
@@ -107,8 +113,6 @@ function App() {
       return[ ...prevTodos, {id:id, name: name, complete:false}]
     })
   }
-
-
 
   return (
     <div className="App">

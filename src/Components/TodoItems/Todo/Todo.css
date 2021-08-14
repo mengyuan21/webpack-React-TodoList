@@ -21,18 +21,6 @@
    top: 26px;
 }
 
-.todo {
-  position: relative;
-  text-align: start;
-  bottom: 20px;
-  left: 10px;
-  min-width: 400px;
-  word-break: break-all;
-  display: block;
-  font-size: 24px;
-  color: #7c7a7a;
-  background-color: blue;
-}
 
 .todo:focus {
     outline: none;
