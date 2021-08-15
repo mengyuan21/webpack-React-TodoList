@@ -53,13 +53,13 @@ function App() {
   }
 
   //onKeyDown
-  function handleSubmit(e) {
+  const handleSubmit =(e) => {
     if (e.keyCode===13) {
       return handleAddTodo();
     }
   }
 
-  function deleteTodo(id) {
+  const deleteTodo = (id) => {
     const newTodos = [...todos];
     const deltededList = newTodos.filter( todo => todo.id !== id)
     setTodos(deltededList);
@@ -67,7 +67,7 @@ function App() {
   }
 
   //标记todo完成
-  function toggleTodo(id) {
+  const toggleTodo = (id) => {
     const newTodos = [...todos];
     const todoitem = newTodos.find(todo => todo.id === id)
     todoitem.complete = !todoitem.complete
@@ -87,14 +87,14 @@ function App() {
   }
 
   //清除已完成
-  function handleClearCompleted() {
+  const handleClearCompleted =() => {
     const newTodos = todos.filter(todo => !todo.complete)
     setTodos(newTodos)
     setDisplayTodos(newTodos)
   }
 
   //全部标记已完成/未完成
-  function allToComplete(isChecked) {
+  const allToComplete = (isChecked) => {
       if(isChecked) {
         const newTodos = todos.map((todo)=> {
             todo.complete = true;
@@ -112,22 +112,22 @@ function App() {
       }
   }
 
-  function getAllTodos() {
+  const getAllTodos =() => {
     const newTodos = [...todos]
     setDisplayTodos(newTodos)
   }
 
-  function getActiveTodos() {
+  const getActiveTodos=() => {
     const newTodos = todos.filter(todo => !todo.complete);
     setDisplayTodos(newTodos)
   }
 
-  function getCompletedTodos () {
+  const getCompletedTodos = () => {
     const newTodos = todos.filter(todo => todo.complete)
     setDisplayTodos(newTodos)
   }
 
-  function editTodoItem(id) {
+  const editTodoItem =(id) => {
     const name = todoNameRef.current.value;
     if (name === '') return
     setTodos(prevTodos => { 
