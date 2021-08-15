@@ -9,14 +9,12 @@ import TodoFilter from './Components/TodoFilter/TodoFilter';
 
 
 
-const TODOS_LOCAL_STORAGE_KEY= 'todoList.todos';
-const DISPLAYTODOS_LOCAL_STORAGE_KEY ='todolist.displayTodos.';
+const TODOS_LOCAL_STORAGE_KEY= "todoList.todos";
 
 function App() {
 
   const [todos, setTodos] = useState([]);
   const [displayTodos, setDisplayTodos] = useState(todos)
-  // const [checkBox, setCheckBox] = useState(false)
   const todoNameRef = useRef();
 
 
@@ -24,8 +22,7 @@ function App() {
   useEffect(()=> {
     console.log("get item")
     // const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
-    const storedTodos = JSON.parse(localStorage.getItem("111"))
-    console.log(storedTodos)
+    const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
     setTodos(storedTodos)
     setDisplayTodos(storedTodos) 
   }, [])
@@ -36,7 +33,7 @@ function App() {
   useEffect(()=> {
     console.log('set item')
    //  localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
-    localStorage.setItem("111" ,JSON.stringify(todos))
+    localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
    }, 
    [todos])
 
