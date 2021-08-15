@@ -19,19 +19,26 @@ function App() {
   // const [checkBox, setCheckBox] = useState(false)
   const todoNameRef = useRef();
 
-  //local.storage: todos
-  //set: 每次更新都需要set一次，因此dependency为：[todos]
-  useEffect(()=> {
-   console.log('changed')
-   localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
-  }, 
-  [todos])
 
   //get: 只get一次，因此dependency为：[]，因为[]永远不变
   useEffect(()=> {
-    const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
-    if(storedTodos) setTodos(storedTodos) 
+    console.log("get item")
+    // const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
+    const storedTodos = JSON.parse(localStorage.getItem("111"))
+    console.log(storedTodos)
+    setTodos(storedTodos)
+    setDisplayTodos(storedTodos) 
   }, [])
+
+
+  //local.storage: todos
+  //set: 每次更新都需要set一次，因此dependency为：[todos]
+  useEffect(()=> {
+    console.log('set item')
+   //  localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
+    localStorage.setItem("111" ,JSON.stringify(todos))
+   }, 
+   [todos])
 
 
   //添加todo
