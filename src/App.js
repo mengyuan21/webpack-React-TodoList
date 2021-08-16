@@ -6,16 +6,12 @@ import Footer from './Components/Footer/Footer';
 import TodoInput from './Components/TodoInput/TodoInput';
 import TodoFilter from './Components/TodoFilter/TodoFilter';
 
-
-
-
 const TODOS_LOCAL_STORAGE_KEY= "todoList.todos";
 
 function App() {
 
   const [todos, setTodos] = useState([]);
   const [displayTodos, setDisplayTodos] = useState(todos)
-
 
   //get: 只get一次，因此dependency为：[]，因为[]永远不变
   useEffect(()=> {
@@ -24,7 +20,6 @@ function App() {
     setTodos(storedTodos)
     setDisplayTodos(storedTodos) 
   }, [])
-
 
   //local.storage: todos
   //set: 每次更新都需要set一次，因此dependency为：[todos]
@@ -43,21 +38,7 @@ function App() {
     setTodos(prevTodos => {
       return [...prevTodos, {id:id, name: name, complete:false}]
     })
-
   }
-
-  //onKeyDown
-  // const handleKeydown =(e) => {
-  //   if (e.keyCode===13) {
-  //     return ();
-  //   }
-  // }
-
-  // const editTodo = (id) => {
-  //   const newTodos = [...todos];
-  //   const editTodo = newTodos.find(todo => todo.id === id)
-
-  // }
 
   const deleteTodo = (id) => {
     const newTodos = [...todos];
@@ -70,17 +51,6 @@ function App() {
     const newTodos = [...todos];
     const todoitem = newTodos.find(todo => todo.id === id)
     todoitem.complete = !todoitem.complete
-    // let isAll = 0;
-    // todos.map(function(todo) {
-    //     if(todo.complete) isAll++
-    //     return todo;
-    // }) 
-    // if(isAll===todos.length) {
-    //     checkBox = true
-    // }else {
-    //     checkBox = false   
-    // }
-    // setCheckBox(checkBox)
     setTodos(newTodos)
     setDisplayTodos(newTodos)
   }
