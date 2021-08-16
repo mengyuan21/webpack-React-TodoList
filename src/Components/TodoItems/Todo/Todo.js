@@ -2,14 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import "./Todo.css";
 
-export default function Todo({ todo, toggleTodo, deleteTodo, editTodoItem, todoNameRef }) {
+export default function Todo({ todo, toggleTodo, deleteTodo}) {
 
-    function handleToggleCheckbox() {
+    const handleToggleCheckbox=() => {
         toggleTodo(todo.id)
     }
 
-    function handleDelete() {
+    const handleDelete = () => {
         deleteTodo(todo.id)
+    }
+
+    const handleTodoEdit = () => {
+
     }
 
     const TodoNameNormal = styled.p`
@@ -37,15 +41,12 @@ export default function Todo({ todo, toggleTodo, deleteTodo, editTodoItem, todoN
         text-decoration: line-through;
     `;
 
-
     return (
         <div className='todo-item' >
             <input className="checkbox" type="checkbox" checked={todo.complete}
                 onChange={handleToggleCheckbox}
             />
             <div> {todo.complete? <TodoNameComplete> {todo.name} </TodoNameComplete> : <TodoNameNormal> {todo.name} </TodoNameNormal>  } </div>
-            {/* <TodoNameNormal> {todo.name} </TodoName> */}
-            {/* <input className="todo" ref={todoNameRef} type='text' value={todo.name} /> */}
             <button className="todo-delete" onClick={handleDelete} > X </button>
         </div>
     )

@@ -34,36 +34,42 @@ function App() {
     console.log('set item')
    //  localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
     localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
+    setDisplayTodos(todos)
    }, 
    [todos])
 
 
   //添加todo
-  function handleAddTodo () {
-    const name = todoNameRef.current.value;
+  function handleSubmit (name) {
+    // const name = todoNameRef.current.value;
     if(name === '') return
     const id = Date.now()
     setTodos(prevTodos => {
       return [...prevTodos, {id:id, name: name, complete:false}]
     })
-    setDisplayTodos(prevTodos => {
-      return [...prevTodos, {id:id, name: name, complete:false}]
-    })
-    todoNameRef.current.value = null;
+    // setDisplayTodos(prevTodos => {
+    //   return [...prevTodos, {id:id, name: name, complete:false}]
+    // })
+    // todoNameRef.current.value = null;
   }
 
   //onKeyDown
-  const handleSubmit =(e) => {
-    if (e.keyCode===13) {
-      return handleAddTodo();
-    }
-  }
+  // const handleKeydown =(e) => {
+  //   if (e.keyCode===13) {
+  //     return ();
+  //   }
+  // }
+
+  // const editTodo = (id) => {
+  //   const newTodos = [...todos];
+  //   const editTodo = newTodos.find(todo => todo.id === id)
+
+  // }
 
   const deleteTodo = (id) => {
     const newTodos = [...todos];
     const deltededList = newTodos.filter( todo => todo.id !== id)
     setTodos(deltededList);
-    setDisplayTodos(deltededList);
   }
 
   //标记todo完成
