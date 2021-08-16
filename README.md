@@ -65,3 +65,16 @@ https://blog.csdn.net/weixin_26750481/article/details/108131405
 
 jsdom s most powerful ability is that it can execute scripts inside the jsdom. These scripts can modify the content of the page and access all the web platform APIs jsdom implements.
 
+
++ findBy / getBy / queryBy的区别
+  findby: 
+  When Match Is Found: Returns a resolved Promise.
+  When Match Is Not Found: Returns a rejected Promise.
+
+  getBy:
+  When Match Is Found: Returns the node that matches the query.
+  When Match Is Not Found: Throws an error.
+
+  queryBy:
+  When Match Is Found: Returns the node that matches the query.
+  When Match Is Not Found: Returns null.
