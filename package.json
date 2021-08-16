@@ -8,16 +8,19 @@
     "start": "webpack-dev-server --open --config webpack.dev.config.js",
     "build": "webpack --config webpack.product.config.js"
   },
-  "jest":{
-      "moduleNameMapper":{
-        "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-        "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
-      }
+  "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    },
+    "testEnvironment": "jsdom"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",

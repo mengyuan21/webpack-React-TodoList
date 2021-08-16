@@ -54,3 +54,11 @@
 
 	doHomework('math', alertFinished);
 
+
+
+# Jest
+## JSDOM 
+Reference:
+https://github.com/jsdom/jsdom
+
+jsdom s most powerful ability is that it can execute scripts inside the jsdom. These scripts can modify the content of the page and access all the web platform APIs jsdom implements.

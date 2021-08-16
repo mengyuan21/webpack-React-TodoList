@@ -1,5 +1,10 @@
-import expectExport from 'expect';
-import { italic } from 'jest-matcher-utils/node_modules/chalk';
-import React from 'react';
-import { ReactDOM } from 'react';
+import React from "react";
+import { render, screen } from '@testing-library/react'
 import Header from './Header';
+import '@testing-library/jest-dom'
+
+
+test("render todos Header", () => {
+    render(<Header/>)
+    expect(screen.getByText("todos")).toBeInTheDocument();
+});
