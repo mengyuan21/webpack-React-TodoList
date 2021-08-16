@@ -19,7 +19,7 @@ test("render todo name", () => {
     expect(screen.getByText('Learn Jest')).toBeInTheDocument();
 }) 
 
-// test("render delete button", () => {
-//     render(<Todo/>);
-//     expect(screen.getByRole('button')).toBeInTheDocument(); 
-// })
+test("render delete button", () => {
+    render(<Todo/>);
+    expect(screen.getByRole('button')).toBeInTheDocument(); 
+})
