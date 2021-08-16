@@ -13,9 +13,11 @@
 + **在设定localStorage时遇到的问题：**
   1. 我在使用useEffect hook设定localstorage时，把setItem与	 
      getItem的顺序写反了，先set再get，这导致我无法在数据发生变
-     化并且刷新后拿到最新的数据，因为get只跑一次，而set需要每次todos变化都重新跑一次。将顺序调整为页面渲染的最开始就拿数据就解决了这个问题。 	
+     化并且刷新后拿到最新的数据，因为get只跑一次，而set需要每次todos变化都重新跑一次。将顺序调整为页面渲染的最开始就拿数据就解决了这个问题。
   2. 我的App.js文件中管理了两个数组，一个是todos，另一个是  
      displayTodos。而在写 setItem 的方法时，我只对todos进行了更新没有同时更新displaytodos，导致我的后续过滤操作产生一些bug，在setItem的useEffect中加一行更新displayTodos的方法就解决了这个问题。	 
+	 > 问题：
+	 > 有没有思考过为什么不set displayTodos的时候,会出现bug？ 可不可以不set displayTodos呢？
 
 
 
