@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import TodoItems from "./TodoItems"
 import "@testing-library/jest-dom";
+import TodoItems from "./TodoItems"
 
 test("render todos", () => {
     const mockTodoItems = [
