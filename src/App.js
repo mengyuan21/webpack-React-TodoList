@@ -15,12 +15,10 @@ function App() {
 
   const [todos, setTodos] = useState([]);
   const [displayTodos, setDisplayTodos] = useState(todos)
-  const todoNameRef = useRef();
 
 
   //get: 只get一次，因此dependency为：[]，因为[]永远不变
   useEffect(()=> {
-    console.log("get item")
     // const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
     const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
     setTodos(storedTodos)
@@ -31,7 +29,6 @@ function App() {
   //local.storage: todos
   //set: 每次更新都需要set一次，因此dependency为：[todos]
   useEffect(()=> {
-    console.log('set item')
    //  localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
     localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
     setDisplayTodos(todos)
@@ -41,16 +38,12 @@ function App() {
 
   //添加todo
   function handleSubmit (name) {
-    // const name = todoNameRef.current.value;
     if(name === '') return
     const id = Date.now()
     setTodos(prevTodos => {
       return [...prevTodos, {id:id, name: name, complete:false}]
     })
-    // setDisplayTodos(prevTodos => {
-    //   return [...prevTodos, {id:id, name: name, complete:false}]
-    // })
-    // todoNameRef.current.value = null;
+
   }
 
   //onKeyDown
@@ -133,23 +126,13 @@ function App() {
     setDisplayTodos(newTodos)
   }
 
-  const editTodoItem =(id) => {
-    const name = todoNameRef.current.value;
-    if (name === '') return
-    setTodos(prevTodos => { 
-      return[ ...prevTodos, {id:id, name: name, complete:false}]
-    })
-    setDisplayTodos(prevTodos => {
-      return[ ...prevTodos, {id:id, name: name, complete:false}]
-    })
-  }
+
 
   return (
     <div className="App">
       <Header />
       <TodoInput 
       todos={todos}
-      todoNameRef={todoNameRef} 
       handleSubmit={handleSubmit}
       allToComplete={allToComplete}
       />
@@ -157,8 +140,6 @@ function App() {
       displayTodos={displayTodos} 
       toggleTodo={toggleTodo} 
       deleteTodo={deleteTodo} 
-      ref={todoNameRef}
-      editTodoItem={editTodoItem}
       />
       <TodoFilter 
       todos={todos}
