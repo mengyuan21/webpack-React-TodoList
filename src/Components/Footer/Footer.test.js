@@ -28,3 +28,9 @@ test("render link 1", () => {
     render(<Footer/>);
     expect(screen.getByTestId("link2")).toBeInTheDocument();
 })
+
+test("links to have href", () => {
+    render(<Footer/>)
+    expect(screen.getByText("mengyuan")).toHaveAttribute('href','https://github.com/mengyuan21?tab=repositories')
+    expect(screen.getByText("TodoMVC")).toHaveAttribute('href','https://github.com/mengyuan21?tab=repositories')
+})
