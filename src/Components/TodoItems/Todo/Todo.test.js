@@ -35,3 +35,13 @@ test("should ture complete to trun when click checkbox", () => {
     expect(mocktoggleTodo).toHaveBeenCalledTimes(1)
 })
 
+test("handle delete button clicked", () => {
+    render(<Todo todo={mockTodo} toggleTodo={mocktoggleTodo} deleteTodo={mockDeleteTodo}/>)
+    fireEvent.click(screen.getByRole("button"))
+    expect(mockDeleteTodo).toHaveBeenCalledTimes(1)
+})
+
+test('should render todo.name on list', () => {
+    render(<Todo todo={mockTodo} toggleTodo={mocktoggleTodo} deleteTodo={mockDeleteTodo}/>)
+    expect(screen.getByText('Learn Jest')).toBeInTheDocument()
+})
