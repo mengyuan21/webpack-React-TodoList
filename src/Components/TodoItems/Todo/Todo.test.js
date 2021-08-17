@@ -1,12 +1,12 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen , fireEvent} from "@testing-library/react";
 import Todo from "./Todo";
 import "@testing-library/jest-dom";
 
 const mockTodo = {
     id:1,
     name:'Learn Jest',
-    complete:true,
+    complete:false,
 }
 
 const mocktoggleTodo = jest.fn(todo => todo.complete === !todo.complete )
@@ -28,3 +28,10 @@ test("render delete button", () => {
     render(<Todo todo={mockTodo} toggleTodo={mocktoggleTodo} deleteTodo={mockDeleteTodo}/>, div);
     expect(screen.getByRole('button')).toBeInTheDocument(); 
 })
+
+test("should ture complete to trun when click checkbox", () => {
+    render(<Todo todo={mockTodo} toggleTodo={mocktoggleTodo} deleteTodo={mockDeleteTodo}/>)
+    fireEvent.click(screen.getByRole("checkbox"))
+    expect(mocktoggleTodo).toHaveBeenCalledTimes(1)
+})
+
