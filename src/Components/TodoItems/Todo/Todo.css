@@ -27,8 +27,8 @@
 }
 
 .todo-delete {
-   position: absolute; 
-   top: 20px; 
+   position: re; 
+   top: 0px; 
    right: 10px;
    margin-right: 10px;
    color: white;
@@ -38,9 +38,12 @@
 }
 
 .todo-item:hover .todo-delete {
-    position: absolute;  
-    right: 10px; 
-    border-width: 0;
+    position: re; 
+    top: 0px; 
+    right: 10px;
+    margin-right: 10px;
+    font-size: 25px;
+    border-width: 0px;
     color: rgb(199, 131, 131);
     background-color: white;
 }

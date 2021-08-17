@@ -21,11 +21,12 @@
 
 .clear-completed {
     border-width: 0px;
-    position: absolute;
-    right: 20px;
-    margin-top: 7px;
+    position: relative;
+    margin-left: 15px;
+    margin-top: 0px;
     color: rgb(161, 159, 159);
     background-color: white;
+
 }
 
 
@@ -33,7 +34,7 @@
     color: rgb(114, 110, 110);
     background-color: white;
     border-width: 0px;
-    position: absolute;
+    position: relative;
     right: 20px;
     text-decoration: underline;
 }

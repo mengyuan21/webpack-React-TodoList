@@ -22,7 +22,7 @@ test("render todos", () => {
         }
     ]
 
-    render(<TodoItems todos={mockTodoItems}/>)
+    render(<TodoItems  displayTodos={mockTodoItems}/>)
     expect(screen.getByRole('listitem').length).toBe(3);
 
     let firstTodo = screen.getByLabelText(/learn jest/i);

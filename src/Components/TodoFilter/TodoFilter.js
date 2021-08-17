@@ -6,7 +6,7 @@ import "./TodoFilter.css";
 export default function TodoFilter({todos, getAllTodos, getActiveTodos, getCompletedTodos, handleClearCompleted}) {
     return (
         <div className="todo-filter" >
-            <div className="numbers-left-todo" >
+            <div className="numbers-left-todo" data-testid="number-to-do">
                 {todos.filter(todo => !todo.complete).length} left to do
             </div>
 
