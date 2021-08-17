@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen , fireEvent} from "@testing-library/react";
 import Todo from "./Todo";
+import userEvent from '@testing-library/user-event';
 import "@testing-library/jest-dom";
 
 const mockTodo = {
@@ -45,3 +46,5 @@ test('should render todo.name on list', () => {
     render(<Todo todo={mockTodo} toggleTodo={mocktoggleTodo} deleteTodo={mockDeleteTodo}/>)
     expect(screen.getByText('Learn Jest')).toBeInTheDocument()
 })
+
+test()
