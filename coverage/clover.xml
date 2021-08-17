@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1629187072749" clover="3.2.0">
+  <project timestamp="1629187072749" name="All files">
+    <metrics statements="13" coveredstatements="10" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="3" elements="21" coveredelements="14" complexity="0" loc="13" ncloc="13" packages="1" files="1" classes="1"/>
+    <file name="TodoInput.js" path="/Users/mengyuan.lithoughtworks.com/Desktop/webpack-React-TodoList/src/Components/TodoInput/TodoInput.js">
+      <metrics statements="13" coveredstatements="10" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="3"/>
+      <line num="6" count="6" type="stmt"/>
+      <line num="8" count="6" type="stmt"/>
+      <line num="9" count="0" type="stmt"/>
+      <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="11" count="0" type="stmt"/>
+      <line num="14" count="6" type="stmt"/>
+      <line num="15" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="17" count="1" type="stmt"/>
+      <line num="22" count="6" type="stmt"/>
+      <line num="23" count="1" type="stmt"/>
+      <line num="24" count="1" type="stmt"/>
+      <line num="27" count="6" type="stmt"/>
+    </file>
+  </project>
+</coverage>

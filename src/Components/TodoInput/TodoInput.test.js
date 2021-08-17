@@ -3,15 +3,8 @@ import { fireEvent, getAllByRole, getByTestId, render, screen } from "@testing-l
 import TodoInput from "./TodoInput";
 import "@testing-library/jest-dom";
 
-const setup = () => {
-    const utils = render(<TodoInput/>)
-    const input = utils.getByTestId("input-keydown")
-    return {
-        input,
-        ...utils,
-    }
-}
 
+const mockSubmit = jest.fn()
 
 test("render checkbox", () => {
     render(<TodoInput/>)
@@ -29,8 +22,14 @@ test("render input", () => {
 })
 
 test(" input should return value when onChange was called", () => {
-    const {input} = setup()
-    expect(input.value).toBe('')
-    fireEvent.change(input,{target:{value:"test onchange"}})
-    expect(input.value).toBe("test onchange");
+    render(<TodoInput handleSubmit={mockSubmit}/>)
+    fireEvent.change(screen.getByTestId("input-keydown"),{target:{value:"test onchange"}})
+    expect(screen.getByTestId("input-keydown").value).toBe("test onchange");
 })
+
+test(" input should called onKeyDown when keyDown", () => {
+    render(<TodoInput handleSubmit={mockSubmit}/>)
+    fireEvent.keyDown(screen.getByTestId("input-keydown"),{key:'Enter', keyCode:'13'})
+    expect(mockSubmit).toBeCalled() 
+})
+
