@@ -8,6 +8,7 @@
     font-weight: 200;
     width: 502px;
     min-height: 30px;
+    max-height: 30px;
     box-shadow: inset 1px 0px 0px 0px rgb(20% 0 0 / 20%);
     border-bottom: 1px solid rgb(233, 231, 231);
     background-color: white;
@@ -15,14 +16,15 @@
 
 .numbers-left-todo {
     width: 150px;
+    position: relative;
+    bottom: 10px;
     margin-right: 10px;
-    margin-top: 8px;
 }
 
 .clear-completed {
     border-width: 0px;
     position: relative;
-    margin-left: 15px;
+    left: 60px;
     margin-top: 0px;
     color: rgb(161, 159, 159);
     background-color: white;
@@ -35,6 +37,6 @@
     background-color: white;
     border-width: 0px;
     position: relative;
-    right: 20px;
+    left: 60px;
     text-decoration: underline;
 }

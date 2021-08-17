@@ -1,5 +1,4 @@
 import React, {usestate} from 'react';
-import styled from 'styled-components';
 import "./Todo.css";
 
 export default function Todo({ todo, toggleTodo, deleteTodo}) {
