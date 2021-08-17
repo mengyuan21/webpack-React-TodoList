@@ -5,6 +5,7 @@ import "@testing-library/jest-dom";
 
 
 const mockSubmit = jest.fn()
+const mockAllToComplete = jest.fn( todo => todo.complete ===!todo.complete )
 
 test("render checkbox", () => {
     render(<TodoInput/>)
@@ -33,3 +34,9 @@ test(" input should called onKeyDown when keyDown", () => {
     expect(mockSubmit).toBeCalled() 
 })
 
+
+test('should change all checkbox to complete', () => {
+    render(<TodoInput allToComplete={mockAllToComplete}/>)
+    fireEvent.click(screen.getByTestId("checkbox-test"))
+    expect(mockAllToComplete).toBeCalledTimes(1);
+})
