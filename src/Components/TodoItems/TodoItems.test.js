@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import TodoItems from "./TodoItems"
+import Todo from './Todo/Todo';
 
 test("render todos", () => {
     const mockTodoItems = [
@@ -23,8 +24,5 @@ test("render todos", () => {
     ]
 
     render(<TodoItems  displayTodos={mockTodoItems}/>)
-    expect(screen.getByRole('listitem').length).toBe(3);
-
-    let firstTodo = screen.getByLabelText(/learn jest/i);
-    expect(firstTodo.closest('label')).toHaveClass('completed');
+    expect(screen.getAllByText("sleep")).toBeInTheDocument();
 })

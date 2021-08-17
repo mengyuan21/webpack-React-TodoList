@@ -101,7 +101,7 @@ function App() {
 
   return (
     <div className="App">
-      <ErrorBoundary>
+      {/* <ErrorBoundary> */}
         <Header />
         <TodoInput
           todos={todos}
@@ -121,7 +121,7 @@ function App() {
           handleClearCompleted={handleClearCompleted}
         />
         <Footer />
-      </ErrorBoundary>
+      {/* </ErrorBoundary> */}
 
     </div>
   );
