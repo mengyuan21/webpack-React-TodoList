@@ -28,7 +28,7 @@ export default function TodoInput({ todos,todoNameRef, handleSubmit, allToComple
         <div className="todo-input">
             <input type="checkbox" className="all-complete-checkbox" onChange={handleAllToComplete} />
             {/* <button onClick={allToComplete} className="input-button">﹀</button> */}
-            <input className="new-todo" placeholder="What needs to be done ?" type="text" onKeyDown={handleKeydown} onChange={onChange} value={inputValue}/>
+            <input className="new-todo" placeholder="What needs to be done ?" type="text" onKeyDown={handleKeydown} onChange={onChange} value={inputValue} data-testid="input-keydown"/>
         </div>
     )
 }
