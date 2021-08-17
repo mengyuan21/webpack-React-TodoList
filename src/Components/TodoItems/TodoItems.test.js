@@ -27,7 +27,6 @@ const mockDeleteTodo = jest.fn( todo => {return todo.id})
 const div = document.createElement('div');
 
 
-
 test("render all todos", () => {
     render(<TodoItems displayTodos={mockDisplayTodos} toggleTodo={mocktoggleTodo} deleteTodo={mockDeleteTodo} />, div)
     expect(screen.getByText('learn jest')).toBeInTheDocument();
