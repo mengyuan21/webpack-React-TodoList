@@ -46,5 +46,3 @@ test('should render todo.name on list', () => {
     render(<Todo todo={mockTodo} toggleTodo={mocktoggleTodo} deleteTodo={mockDeleteTodo}/>)
     expect(screen.getByText('Learn Jest')).toBeInTheDocument()
 })
-
-test()

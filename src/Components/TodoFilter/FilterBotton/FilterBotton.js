@@ -20,8 +20,6 @@ export default function FilterBotton({getAllTodos, getActiveTodos, getCompletedT
     }
     `;
 
-    
-
     return (
         <div className="filter-buttons" >
                 <Button data-testid="filter-button" onClick={getAllTodos} > All </Button>

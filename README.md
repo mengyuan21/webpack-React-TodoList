@@ -25,7 +25,7 @@
 	https://www.cnblogs.com/Andy1982/p/13939573.html
 
 
-	
+​	
 
 + **普通函数与箭头函数的区别：**
 	箭头函数看上去是匿名函数的一种简写，但实际上，箭头函数和匿名函数有个明显的区别：箭头函数内部的this是词法作用域，由上下文确定。
@@ -41,7 +41,7 @@
 
 	2. 为什需要callback function ？
 	JS是单线程语言，两端脚本不能同时运行，为了防止阻塞，只能通过异步函数的调用方式，把需要延迟处理的事件放入事件循环队列。目前为止，callback function是编写和处理JavaScript程序异步逻辑的最常用方式。
-
+	
 	如：
 ```js
 	function doHomework(subject, callback) {
@@ -54,9 +54,54 @@
 
 	doHomework('math', alertFinished);
 
+```
 
+ 
+
++ **import 和 import {  } 的区别：**
+
+  1.export与export default均可用于导出常量、函数、文件、模块等
+  2.在一个文件或模块中，export 、import可以有多个，export default仅有一个
+  3.通过export方式导出，在导入时要加{ }，export default则不需要
+  4.export能直接导出变量表达式，export default不行
+
+
+
++ **Dev Dependencies  vs  Dependencies**
+
+  Reference :
+
+   https://medium.com/@dylanavery720/npmmmm-1-dev-dependencies-dependencies-8931c2583b0c
+
+  
+
+  Dev dependencies是今在开发期间需要的模块； 
+
+  dependence是在运行时也需要的模块。
+
+  
+
+  在依赖项安装时如果只需要安装至devdependency则可以运行：
+
+  ```tex
+  npm install --save-dev
+  ```
+
+  Deoendencies需要的依赖: React、Redux、Express 和 Axios...
+  devDependencies需要的依赖:  Nodemon、Babel、ESLint，以及像 Chai、Mocha、Enzyme 等测试框架……
+
+
+
++ **npm 是什么**
+
+  NPM是随同NodeJS一起安装的包管理工具，能解决NodeJS代码部署上的很多问题，常见的使用场景有以下几种：
+
+  - 允许用户从NPM服务器下载别人编写的第三方包到本地使用。
+  - 允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。
+  - 允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。
 
 # Jest
+
 ## JSDOM 
 Reference:
 https://github.com/jsdom/jsdom
@@ -81,3 +126,274 @@ jsdom s most powerful ability is that it can execute scripts inside the jsdom. T
   queryBy:
   When Match Is Found: Returns the node that matches the query.
   When Match Is Not Found: Returns null.
+
+
+
+## Questions
+
+
+
+### 1. 如何mock function？
+
++ **const mockFunctionName = jest.fn( functions... )**
+
+通过删除函数的实际实现，捕获函数的调用来测试代码直接的链接。
+
+mock function可以通过两种方法实现：
+
+（1） 创建一个模拟函数在测试代码中实现；
+
+（2）编写一整个模拟的模块来覆盖依赖项（个人理解是保留原函数的功能并模拟出与之实现相关的所有函数）
+
++ Example :
+
+下列函数是对于输入的items进行遍历并使用了callback function对items进行处理，此时我们可以对callback function的内容进行mock，我们只需要确定callback function被正常调用即可，不需要测试它的具体实现。
+
+```js
+function forEach(items, callback) {
+  for (let index = 0; index < items.length; index++) {
+    callback(items[index]);
+  }
+}
+```
+
+
+
+**Mock Function**:
+
+这里将callback function 定义为items中的每个值 + 42，我们运行foreach后将会得到结果，将mock function的运行结果进行断言即完成测试；
+
+```js
+const mockCallback = jest.fn(x => 42 + x);
+forEach([0, 1], mockCallback);
+
+// The mock function is called twice
+expect(mockCallback.mock.calls.length).toBe(2);
+
+// The first argument of the first call to the function was 0
+expect(mockCallback.mock.calls[0][0]).toBe(0);
+
+// The first argument of the second call to the function was 1
+expect(mockCallback.mock.calls[1][0]).toBe(1);
+
+// The return value of the first call to the function was 42
+expect(mockCallback.mock.results[0].value).toBe(42);
+```
+
+
+
+### 2. Mock Module
+
++ **jest.mock(  modalName  )**
+
++ Example:
+
+```js
+// users.js
+import axios from 'axios';
+
+class Users {
+  static all() {
+    return axios.get('/users.json').then(resp => resp.data);
+  }
+}
+
+export default Users;
+
+```
+
+
+
+### Mock Module
+
+为了测试这个方法，但不用真的去链接这个API，我们可以用jest.mock( ... )去模拟这个axios module，之后我们就可以给这个module放一些模拟的数据去测试axios是否能够连接成功了
+
+```js
+// users.test.js
+import axios from 'axios';
+import Users from './users';
+
+jest.mock('axios');
+
+test('should fetch users', () => {
+  const users = [{name: 'Bob'}];
+  const resp = {data: users};
+  axios.get.mockResolvedValue(resp);
+
+  // or you could use the following depending on your use case:
+  // axios.get.mockImplementation(() => Promise.resolve(resp))
+
+  return Users.all().then(data => expect(data).toEqual(users));
+});
+```
+
+
+
+
+
+### 3. Mock Return Value
+
+mock return value 可以用于给mock function注入返回值，这种方法可以简化mock function 的书写过程，避免使用复杂的实现来创建模拟的真实组件行为。
+
+```js
+const myMock = jest.fn();
+console.log(myMock());
+// > undefined
+
+myMock.mockReturnValueOnce(10).mockReturnValueOnce('x').mockReturnValue(true);
+
+console.log(myMock(), myMock(), myMock(), myMock());
+// > 10, 'x', true, true
+```
+
+
+
+### 4. Mock Names
+
+快捷的mock数据生成方法：
+
+可以将多种mock数据放在一起写
+
+```js
+const myMockFn = jest
+  .fn()
+  .mockReturnValue('default')
+  .mockImplementation(scalar => 42 + scalar)
+  .mockName('add42');
+```
+
+
+
+### 
+
+
+
+
+
+
+
+## Matchers:
+
+```js
+// The mock function was called at least once
+expect(mockFunc).toHaveBeenCalled();
+
+// The mock function was called at least once with the specified args
+expect(mockFunc).toHaveBeenCalledWith(arg1, arg2);
+
+// The last call to the mock function was called with the specified args
+expect(mockFunc).toHaveBeenLastCalledWith(arg1, arg2);
+
+// All calls and the name of the mock is written as a snapshot
+expect(mockFunc).toMatchSnapshot();
+
+// The mock function was called at least once
+expect(mockFunc.mock.calls.length).toBeGreaterThan(0);
+
+// The mock function was called at least once with the specified args
+expect(mockFunc.mock.calls).toContainEqual([arg1, arg2]);
+
+// The last call to the mock function was called with the specified args
+expect(mockFunc.mock.calls[mockFunc.mock.calls.length - 1]).toEqual([
+  arg1,
+  arg2,
+]);
+
+// The first arg of the last call to the mock function was `42`
+// (note that there is no sugar helper for this specific of an assertion)
+expect(mockFunc.mock.calls[mockFunc.mock.calls.length - 1][0]).toBe(42);
+
+// A snapshot will check that a mock was invoked the same number of times,
+// in the same order, with the same arguments. It will also assert on the name.
+expect(mockFunc.mock.calls).toEqual([[arg1, arg2]]);
+expect(mockFunc.getMockName()).toBe('a mock name');
+
+```
+
+
+
+
+
+## Testing Library 
+
+### 1.  fireEvent / userEvent 的区别
+
+( Testing Library 推荐使用 userEvent )
+
+user-event 是 Testing Library 的配套库，它提供了比内置 fireEvent 方法更高级的浏览器交互模拟。
+
+### userEvent: 
+
+Reference: https://testing-library.com/docs/ecosystem-user-event/
+
+1.   **Click** :
+
+      userEvent.click(`(element, eventInit, options)`) 
+
+2.   **dbClick**:
+
+     userEvent.dbClick( `element, eventInit, options` )	
+
+3.    **type**:
+
+      uesrEvent.type( `element, text, [options]` )
+
+   ```js
+   import React from 'react'
+   import {render, screen} from '@testing-library/react'
+   import userEvent from '@testing-library/user-event'
+   
+   test('type', () => {
+     render(<textarea />)
+   
+     userEvent.type(screen.getByRole('textbox'), 'Hello,{enter}World!')
+     expect(screen.getByRole('textbox')).toHaveValue('Hello,\nWorld!')
+   })
+   ```
+
+4.    **hover / unhover ** :
+
+​         userEvent.hover ( element )
+
+```js
+import React from 'react'
+import {render, screen} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import Tooltip from '../tooltip'
+
+test('hover', () => {
+  const messageText = 'Hello'
+  render(
+    <Tooltip messageText={messageText}>
+      <TrashIcon aria-label="Delete" />
+    </Tooltip>,
+  )
+
+  userEvent.hover(screen.getByLabelText(/delete/i))
+  expect(screen.getByText(messageText)).toBeInTheDocument()
+  userEvent.unhover(screen.getByLabelText(/delete/i))
+  expect(screen.queryByText(messageText)).not.toBeInTheDocument()
+})
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
