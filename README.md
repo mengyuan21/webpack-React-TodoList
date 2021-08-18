@@ -66,6 +66,12 @@
   4.export能直接导出变量表达式，export default不行
 
 
++ **测试： 通过userEvent.hover测试hover事件的时候事件没有触发成功可能是因为异步的原因，通过在expect中加上： waitfor(()  =>expect()... )可以解决**
+
++ **useState是异步的，在useEffec中setState可能会导致信息不能同步更新**
+
+
++ **三个filter Button可以不用单独抽出来作为一个组件**
 
 + **Dev Dependencies  vs  Dependencies**
 
