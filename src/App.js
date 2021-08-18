@@ -41,6 +41,17 @@ function App() {
     })
   }
 
+  function handleEdit(name, id) {
+    if(name === '') return
+    const newTodos = [...todos]
+    // console.log(newTodos)
+    const todoitem = newTodos.find(todo => (todo.id === id))
+    todoitem.name = name
+    setTodos(newTodos)
+    setDisplayTodos(newTodos)
+  }
+
+
   const deleteTodo = (id) => {
     const newTodos = [...todos];
     const deltededList = newTodos.filter(todo => todo.id !== id)
@@ -109,9 +120,11 @@ function App() {
           allToComplete={allToComplete}
         />
         <TodoItems
+          todos={todos}
           displayTodos={displayTodos}
           toggleTodo={toggleTodo}
           deleteTodo={deleteTodo}
+          handleEdit={handleEdit}
         />
         <TodoFilter
           todos={todos}

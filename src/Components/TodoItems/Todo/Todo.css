@@ -27,8 +27,6 @@
 }
 
 .todo-message-normal {
-    position: relative;
-    text-align: start;
     bottom: 20px;
     left: 10px;
     min-width: 400px;
@@ -40,19 +38,26 @@
 }
 
 .todo-message-normal:focus {
-    outline: 0px;
-}
-
-.todo-message-completed {
-    position: relative;
-    text-align: start;
     bottom: 20px;
     left: 10px;
     min-width: 400px;
     word-break: break-all;
     display: block;
     font-size: 24px;
-    color: rgb(202, 194, 194);
+    border: 0px;
+    color: #7c7a7a;
+    outline: 0px;
+}
+
+.todo-message-completed {
+    bottom: 20px;
+    left: 10px;
+    min-width: 400px;
+    word-break: break-all;
+    display: block;
+    font-size: 24px;
+    border: 0px;
+    color: #7c7a7a;
     text-decoration: line-through;
 }
 

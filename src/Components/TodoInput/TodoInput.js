@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import "./TodoInput.css";
 
-export default function TodoInput({ todos,todoNameRef, handleSubmit, allToComplete}) {
+export default function TodoInput({ todos, handleSubmit, allToComplete}) {
 
     const [inputValue, setInputValue] = useState('');
 
