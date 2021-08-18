@@ -15,13 +15,14 @@ export default function Todo({ todo, toggleTodo, deleteTodo, handleEdit}) {
 
     const handleKeydown = (e) => {
        if(e.keyCode===13) {
-           console.log(editTodo)
+           console.log(editTodo) 
            handleEdit(editTodo,todo.id)
        }
     }
 
     const onChange = (e) => {
         const editTodo = e.target.value;
+       
         setEditTodo(editTodo)
     }
 

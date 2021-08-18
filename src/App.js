@@ -44,7 +44,6 @@ function App() {
   function handleEdit(name, id) {
     if(name === '') return
     const newTodos = [...todos]
-    // console.log(newTodos)
     const todoitem = newTodos.find(todo => (todo.id === id))
     todoitem.name = name
     setTodos(newTodos)
