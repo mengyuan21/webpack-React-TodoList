@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1629205724089" clover="3.2.0">
-  <project timestamp="1629205724090" name="All files">
-    <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="3" coveredelements="3" complexity="0" loc="2" ncloc="2" packages="1" files="1" classes="1"/>
-    <file name="FilterBotton.js" path="/Users/mengyuan.lithoughtworks.com/Desktop/webpack-React-TodoList/src/Components/TodoFilter/FilterBotton/FilterBotton.js">
-      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <line num="6" count="3" type="stmt"/>
-      <line num="25" count="3" type="stmt"/>
+<coverage generated="1629293321135" clover="3.2.0">
+  <project timestamp="1629293321135" name="All files">
+    <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2" elements="5" coveredelements="5" complexity="0" loc="3" ncloc="3" packages="1" files="1" classes="1"/>
+    <file name="TodoFilter.js" path="/Users/mengyuan.lithoughtworks.com/Desktop/webpack-React-TodoList/src/Components/TodoFilter/TodoFilter.js">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <line num="6" count="1" type="stmt"/>
+      <line num="24" count="5" type="stmt"/>
+      <line num="27" count="15" type="stmt"/>
     </file>
   </project>
 </coverage>
