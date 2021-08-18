@@ -1,10 +1,67 @@
-# Redux / Hooks
+# Redux & Hooks
 
-## Redux的概念
+## 1. Redux的概念
 
 Redux是实现了全局 state 、处理全局 state 的方式和统一的数据处理中心，也就是 store、dispatch 和 reducer。
 
-## Redux和hooks(useReducer)的区别 
+
+
+## 2. Hooks（useReducer）
+
+
+
+![Screen Shot 2021-08-18 at 1.20.04 PM](/Users/mengyuan.lithoughtworks.com/Library/Application Support/typora-user-images/Screen Shot 2021-08-18 at 1.20.04 PM.png)
+
+
+
+```js
+//声明初始state
+const initialState = {count:0};
+
+//把所有action type存为一个常量：
+const ACTIONS = {
+  INCREMENT:'increment',
+  DECREMENT:'decrement',
+}
+
+//声明reducer函数，关于state的操作在这里写
+function reducer(state, action) {
+  swtich(action.type) {
+    case ACTION.INCREMENT:
+    	return {count: state.count + action.payload};
+    case ACTION.DECREMENT:
+    	return {count:state.count - action.payload};
+    default:
+    	throw new Error();
+  }
+}
+
+//通过dispatch触发action: type:"increment"来更新state
+function Counter() {
+	const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+  	<>
+    	Count:{state.count}
+			<button onClick={() => dispatch(type:"decrement",payload: 1)} > - <button>
+      <button onClick={() => dispatch(type:"increment",payload: 1)} > + <button>  
+    <>
+  )
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 3. Redux和hooks(useReducer)的区别 
 
 ### 数据流对比：
 
@@ -15,6 +72,14 @@ Redux是实现了全局 state 、处理全局 state 的方式和统一的数据�
 + Hooks：
 
 ![Screen Shot 2021-08-18 at 10.09.51 AM](/Users/mengyuan.lithoughtworks.com/Library/Application Support/typora-user-images/Screen Shot 2021-08-18 at 10.09.51 AM.png)
+
+
+
+
+
+
+
+
 
 
 
