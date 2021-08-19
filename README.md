@@ -106,6 +106,61 @@
   - 允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。
   - 允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。
 
+
+ ## **什么是Promise**
+  promise是js的抽象异步处理对象实现异步编程的方案，简单的说就是解决传统js运行单线程的诟病以及异步操作的多层级嵌套带来的麻烦。可以将异步数据变为同步；
+
+### 1. Promise对象的特点
+  对象的状态不受外界影响；
+  Promise对象代表一个异步操作，由三种状态：
+  （1） pending  ——  进行中
+  （2） fulfilled  ——  已成功
+  （3） rejected  ——  已失败
+  只有一步操作的结果可以决定当前是哪一种状态，任何其他操作都无法改变这个状态；
+
+  一旦状态改变就不会再变化，任何时候都可以得到这个结果；
+  Promise对象的状态变化只有如下两种：
+  pending -> fulfilled;
+  pending -> rejected
+
+  只要这两种情况发生就不会在变化，就算再对Promisse对象添加回调函数也会立即得到之前的结果，这与event完全不同
+
+### Promise的好处
+  Promise最大的好处是在异步执行的流程中，把执行代码和处理结果的代码清晰的分离了
+```js
+new Promise(async) 
+.then(...)
+.catch(...)
+```
+  如果有若干个异步的任务，需要先做任务1，成功后再做任务2，然后任务3.任何任务失败则不在继续并执行错误处理函数。要执行这样的一部任务，Promise可以简单的完成：
+
+
+```js
+job1
+.then(job2)
+.then(job3)
+.catch(handleError)
+```
+
+
+  除了串行执行若干异步任务外，Promise还可以并行执行异步任务。它依赖于前置的多个Promise对象，只有当这些Promise对象全部执行成功后，才会去执行then后面的回调函数。例如下面的promise对象p1和p2,这两个任务是可以并行执行的，用Promise.all()实现
+
+
+
+```js
+var p1 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 500, 'P1');
+});
+var p2 = new Promise(function (resolve, reject) {
+    setTimeout(resolve, 600, 'P2');
+});
+// 同时执行p1和p2，并在它们都完成后执行then:
+Promise.all([p1, p2]).then(function (results) {
+    console.log(results); // 获得一个Array: ['P1', 'P2']
+});
+
+```
+
 # Jest
 
 ## JSDOM 
