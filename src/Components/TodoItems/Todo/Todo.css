@@ -34,6 +34,7 @@
     word-break: break-all;
     display: block;
     font-size: 24px;
+    font-weight: 100;
     border: 0px;
     color: #7c7a7a;
 }
@@ -42,6 +43,7 @@
     bottom: 20px;
     left: 10px;
     min-width: 400px;
+    font-weight: 100;
     word-break: break-all;
     display: block;
     font-size: 24px;
@@ -57,6 +59,7 @@
     word-break: break-all;
     display: block;
     font-size: 24px;
+    font-weight: 100;
     border: 0px;
     color: #bdb8b8;
     text-decoration: line-through;
