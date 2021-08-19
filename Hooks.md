@@ -100,6 +100,95 @@ function FriendStatus(props) {
 
 
 
+3. #### useContext 
+
+Variable without setting useContext:
+
+It will pass through many components on the component tree and it might cause problems.
+
+![Screen Shot 2021-08-19 at 4.42.14 PM](/Users/mengyuan.lithoughtworks.com/Library/Application Support/typora-user-images/Screen Shot 2021-08-19 at 4.42.14 PM.png)
+
+## 如何使用Context :
+
+Context provides a way to pass data through the components tree without having to pass props down manually at every level.
+
+Step 1: creat the context:
+
+```js
+//在父组件外写：
+export const UserContext = React.creactContext()
+```
+
+
+
+Step 2: put provider outside the component that they need:
+
+```js
+return (
+	<div>
+  	<UserContext.Provider value={'what you want to pass'}>
+  		<ComponentC/>
+  	<UserContext.Provider/>
+  <div>	
+)
+```
+
+
+
+Step 3: import UserContext into component F and add Consumer:
+
+```js
+import React from 'react';
+import {UserContext} from './App';
+
+
+function ComponentF() {
+  
+  
+  return (
+  	<div>
+    	<UserContext.Consumer  >
+    			Component F {value}
+    	<UserContext.Consumer/>
+    <div>
+  )
+}
+
+
+```
+
+
+
+## 如何使用useContext?
+
+
+
+Step 3:
+
+```js
+import React from 'react';
+import {UserContext} from './App';
+
+
+function ComponentF() {
+  
+  const user = useContext(UserContext)
+  
+  return (
+  	<div>
+    	<UserContext.Consumer  >
+    			Component F {value}
+    	<UserContext.Consumer/>
+    <div>
+  )
+}
+
+
+
+```
+
+
+
 
 
 #### 3. Building Your Own Hooks
