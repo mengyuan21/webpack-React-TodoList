@@ -1,9 +1,11 @@
-import React from 'react';
-import { TodoContext } from '../../App';
+import React, { useContext } from 'react';
 import Todo from './Todo/Todo';
+import { DisplayTodosContext} from '../../App';
 
-export default function TodoItems({ displayTodos, toggleTodo, deleteTodo, todoNameRef,editTodoItem,dispatch }) {
+export default function TodoItems({ toggleTodo, deleteTodo, todoNameRef,editTodoItem,dispatch }) {
     
+    const displayTodos = useContext(DisplayTodosContext)
+
     return (
         displayTodos.map(todo => {
             return (

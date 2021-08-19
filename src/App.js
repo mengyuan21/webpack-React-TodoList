@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState, useEffect, useReducer, useContext, createContext } from 'react';
+import React, { useState, useEffect, useReducer, createContext } from 'react';
 import Header from './Components/Header/Header';
 import TodoItems from './Components/TodoItems/TodoItems';
 import Footer from './Components/Footer/Footer';
@@ -12,14 +12,13 @@ const initialState = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
 export const TodosContext = React.createContext();
 export const DisplayTodosContext = React.createContext();
 
-
 function reducer(todos, action) {
   switch (action.type) {
     case ACTIONS.ADD_TODO:
       return [...todos, newTodos(action.payload.name)];
     case ACTIONS.EDIT_TODO:
       return todos.map(todo => {
-        if (todo.id = action.payload.id) {
+        if (todo.id === action.payload.id) {
           return todo.name = action.payload.name
         }
         return todo
@@ -60,13 +59,17 @@ function newTodos(name) {
   }
 }
 
+export const AppContext = createContext();
 
 function App() {
   const [todos, dispatch] = useReducer(reducer, initialState)
   const [displayTodos, setDisplayTodos] = useState(todos)
   const [name, setName] = useState("")
 
+  //local.storage: todos
+  //set: 每次更新都需要set一次，因此dependency为：[todos]
   useEffect(() => {
+    //  localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
     localStorage.setItem(TODOS_LOCAL_STORAGE_KEY, JSON.stringify(todos))
     setDisplayTodos(todos)
   },
@@ -84,9 +87,8 @@ function App() {
     })
     setName("")
   }
-  //编辑todo
+
   function handleEdit(name, id) {
-    console.log(id)
     dispatch({
       type: ACTIONS.EDIT_TODO,
       payload: {
@@ -151,39 +153,40 @@ function App() {
 
 
   return (
-    // <TodoContext.Provider>
-      <div className="App">
-        {/* <ErrorBoundary> */}
-        <Header />
-        <TodoInput
-          name={name}
-          setName={setName}
-          dispatch={dispatch}
-          handleSubmit={handleSubmit}
-          allToComplete={allToComplete}
-        />
-        <TodoItems
-          todos={todos}
-          displayTodos={displayTodos}
-          toggleTodo={toggleTodo}
-          deleteTodo={deleteTodo}
-          dispatch={dispatch}
-          handleEdit={handleEdit}
-        />
-        <TodoFilter
-          todos={todos}
-          dispatch={dispatch}
-          getAllTodos={getAllTodos}
-          getActiveTodos={getActiveTodos}
-          getCompletedTodos={getCompletedTodos}
-          handleClearCompleted={handleClearCompleted}
-        />
-        <Footer />
-        {/* </ErrorBoundary> */}
+    <div className="App">
+      {/* <ErrorBoundary> */}
+      <Header />
+      <TodoInput
+        name={name}
+        setName={setName}
+        dispatch={dispatch}
+        handleSubmit={handleSubmit}
+        allToComplete={allToComplete}
+      />
+      <TodosContext.Provider value={todos} >
+        <DisplayTodosContext.Provider value={displayTodos}>
+          <TodoItems
+            dispatch={dispatch}
+            displayTodos={displayTodos}
+            toggleTodo={toggleTodo}
+            deleteTodo={deleteTodo}
+            handleEdit={handleEdit}
+          />
+        </DisplayTodosContext.Provider>
+      </TodosContext.Provider>
 
-      </div>
-    // </TodoContext.Provider>
+      <TodoFilter
+        todos={todos}
+        dispatch={dispatch}
+        getAllTodos={getAllTodos}
+        getActiveTodos={getActiveTodos}
+        getCompletedTodos={getCompletedTodos}
+        handleClearCompleted={handleClearCompleted}
+      />
+      <Footer />
+      {/* </ErrorBoundary> */}
 
+    </div>
   );
 }
 
