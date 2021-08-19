@@ -27,7 +27,8 @@
 }
 
 .todo-message-normal {
-    bottom: 20px;
+    margin-top: 5px;
+    margin-left: 15px;
     left: 10px;
     min-width: 400px;
     word-break: break-all;
@@ -50,8 +51,8 @@
 }
 
 .todo-message-completed {
-    bottom: 20px;
-    left: 10px;
+    margin-top: 5px;
+    margin-left: 15px;
     min-width: 400px;
     word-break: break-all;
     display: block;
