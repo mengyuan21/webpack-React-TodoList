@@ -1,4 +1,4 @@
-import React,{ useContext } from 'react';
+import React, { useContext } from 'react';
 import "./TodoFilter.css";
 import { TodosContext } from '../../App';
 import styled from 'styled-components';

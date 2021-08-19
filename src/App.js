@@ -154,39 +154,35 @@ function App() {
 
   return (
     <div className="App">
-      {/* <ErrorBoundary> */}
-      <Header />
-      <TodoInput
-        name={name}
-        setName={setName}
-        dispatch={dispatch}
-        handleSubmit={handleSubmit}
-        allToComplete={allToComplete}
-      />
-
-      <DisplayTodosContext.Provider value={displayTodos}>
-        <TodoItems
-          dispatch={dispatch}
-          displayTodos={displayTodos}
-          toggleTodo={toggleTodo}
-          deleteTodo={deleteTodo}
-          handleEdit={handleEdit}
-        />
-      </DisplayTodosContext.Provider>
-
       <TodosContext.Provider value={todos} >
+        <Header />
+        <TodoInput
+          name={name}
+          setName={setName}
+          dispatch={dispatch}
+          handleSubmit={handleSubmit}
+          allToComplete={allToComplete}
+        />
+
+          <TodoItems
+            displayTodos={displayTodos}
+            dispatch={dispatch}
+            displayTodos={displayTodos}
+            toggleTodo={toggleTodo}
+            deleteTodo={deleteTodo}
+            handleEdit={handleEdit}
+          />
+
         <TodoFilter
-          // todos={todos}
           dispatch={dispatch}
           getAllTodos={getAllTodos}
           getActiveTodos={getActiveTodos}
           getCompletedTodos={getCompletedTodos}
           handleClearCompleted={handleClearCompleted}
         />
-      </TodosContext.Provider >
+        <Footer />
+      </TodosContext.Provider>
 
-      <Footer />
-      {/* </ErrorBoundary> */}
 
     </div>
   );
