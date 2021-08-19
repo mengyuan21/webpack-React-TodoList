@@ -126,7 +126,9 @@
   只要这两种情况发生就不会在变化，就算再对Promisse对象添加回调函数也会立即得到之前的结果，这与event完全不同
 
 ### Promise的好处
-  Promise最大的好处是在异步执行的流程中，把执行代码和处理结果的代码清晰的分离了
+  Promise最大的好处是在异步执行的流程中，把执行代码和处理结果的代码清晰的分离了；
+  Promise 提供统一的 API，各种异步操作都可以用同样的方法进行处理
+
 ```js
 new Promise(async) 
 .then(...)
@@ -160,6 +162,9 @@ Promise.all([p1, p2]).then(function (results) {
 });
 
 ```
+
+
+
 
 # Jest
 

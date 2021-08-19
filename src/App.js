@@ -58,8 +58,6 @@ function newTodos(name) {
   }
 }
 
-export const AppContext = createContext();
-
 function App() {
   const [todos, dispatch] = useReducer(reducer, initialState)
   const [displayTodos, setDisplayTodos] = useState(todos)
