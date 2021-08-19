@@ -1,18 +1,25 @@
 import React, {useState} from 'react';
 import "./Todo.css";
+import { ACTIONS } from '../../../App';
 
-export default function Todo({ todo, toggleTodo, deleteTodo, handleEdit}) {
+export default function Todo({ todo, handleEdit, dispatch}) {
 
     const [editTodo, setEditTodo] = useState('');
 
     const handleToggleCheckbox=() => {
-        toggleTodo(todo.id)
+        dispatch({
+            type: ACTIONS.TOGGLE_TODO,
+            payload: {id: todo.id}
+        })
     }
 
     const handleDelete = () => {
-        deleteTodo(todo.id)
+        dispatch({
+            type: ACTIONS.DELETE_TODO,
+            payload: {id: todo.id}
+        })
     }
-
+    
     const handleKeydown = (e) => {
        if(e.keyCode===13) {
            handleEdit(editTodo,todo.id)

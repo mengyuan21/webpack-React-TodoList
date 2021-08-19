@@ -1,26 +1,76 @@
 import './App.css';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useReducer, useContext, createContext } from 'react';
 import Header from './Components/Header/Header';
 import TodoItems from './Components/TodoItems/TodoItems';
 import Footer from './Components/Footer/Footer';
 import TodoInput from './Components/TodoInput/TodoInput';
 import TodoFilter from './Components/TodoFilter/TodoFilter';
-import ErrorBoundary from './Components/ErrorBoundary';
 
 const TODOS_LOCAL_STORAGE_KEY = "todoList.todos";
+const initialState = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
+
+export const ACTIONS = {
+  ADD_TODO: 'submit_todo',
+  EDIT_TODO: 'edit_todo',
+  DELETE_TODO: 'delete_todo',
+  TOGGLE_TODO: 'toggle_todo',
+  ALL_TO_COMPLETE: 'all_to_complete',
+  CLEAR_COMPLETED:'clear_completed',
+}
+
+function reducer(todos, action) {
+  switch (action.type) {
+    case ACTIONS.ADD_TODO:
+      return [...todos, newTodos(action.payload.name)];
+    case ACTIONS.EDIT_TODO:
+      return todos.map(todo => {
+        if(todo.id = action.payload.id){
+          return todo.name = action.payload.name
+        }
+        return todo
+      }) 
+    case ACTIONS.DELETE_TODO:
+      return todos.filter(todo => todo.id !== action.payload.id)
+    case ACTIONS.TOGGLE_TODO:
+      return todos.map(todo => {
+        if (todo.id === action.payload.id){
+          return {...todo, complete: !todo.complete};
+        }
+        return todo
+      })
+    case ACTIONS.ALL_TO_COMPLETE:
+      return todos.map(todo => {
+        if(action.payload.isChecked){
+          todo.complete =true
+          return todo
+        }
+        else {
+          todo.complete = false;
+          return todo
+        }
+      }) 
+    case ACTIONS.CLEAR_COMPLETED:
+      return todos.filter(todo => !todo.complete) 
+    default:
+      return todos     
+  }
+}
+
+function newTodos(name) {
+  const id = Date.now()
+  return {
+    id: id,
+    name,
+    complete: false
+  }
+}
+
+export const AppContext = createContext();
 
 function App() {
-
-  const [todos, setTodos] = useState([]);
+  const [todos, dispatch] = useReducer(reducer, initialState)
   const [displayTodos, setDisplayTodos] = useState(todos)
-
-  //get: 只get一次，因此dependency为：[]，因为[]永远不变
-  useEffect(() => {
-    // const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
-    const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
-    setTodos(storedTodos)
-    setDisplayTodos(storedTodos)
-  }, [])
+  const [name, setName] = useState("")
 
   //local.storage: todos
   //set: 每次更新都需要set一次，因此dependency为：[todos]
@@ -28,33 +78,41 @@ function App() {
     //  localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
     localStorage.setItem(TODOS_LOCAL_STORAGE_KEY, JSON.stringify(todos))
     setDisplayTodos(todos)
+    console.log(todos)
   },
     [todos])
 
-
   //添加todo
-  function handleSubmit(name) {
-    if (name === '') return
-    const id = Date.now()
-    setTodos(prevTodos => {
-      return [...prevTodos, { id: id, name: name, complete: false }]
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (name === "") return
+    dispatch({
+      type:ACTIONS.ADD_TODO,
+      payload: {
+        name
+      }
     })
+    setName("")
   }
 
   function handleEdit(name, id) {
-    if(name === '') return
-    const newTodos = [...todos]
-    const todoitem = newTodos.find(todo => (todo.id === id))
-    todoitem.name = name
-    setTodos(newTodos)
-    setDisplayTodos(newTodos)
+    dispatch({
+      type:ACTIONS.EDIT_TODO,
+      payload:{
+        name,
+        id
+      }
+    })
   }
 
-
+  //删除todo
   const deleteTodo = (id) => {
-    const newTodos = [...todos];
-    const deltededList = newTodos.filter(todo => todo.id !== id)
-    setTodos(deltededList);
+    dispatch ({
+      type:ACTIONS.DELETE_TODO,
+      payload:{
+        id:id
+      }
+    })
   }
 
   //标记todo完成
@@ -62,41 +120,33 @@ function App() {
     const newTodos = [...todos];
     const todoitem = newTodos.find(todo => todo.id === id)
     todoitem.complete = !todoitem.complete
-    setTodos(newTodos)
-    setDisplayTodos(newTodos)
-  }
-
-  //清除已完成
-  const handleClearCompleted = () => {
-    const newTodos = todos.filter(todo => !todo.complete)
-    setTodos(newTodos)
     setDisplayTodos(newTodos)
   }
 
   //全部标记已完成/未完成
   const allToComplete = (isChecked) => {
-    if (isChecked) {
-      const newTodos = todos.map((todo) => {
-        todo.complete = true;
-        return todo;
-      })
-      setTodos(newTodos)
-      setDisplayTodos(newTodos)
-    } else {
-      const newTodos = todos.map((todo) => {
-        todo.complete = false;
-        return todo;
-      })
-      setTodos(newTodos)
-      setDisplayTodos(newTodos)
-    }
+    dispatch({
+      type: ACTIONS.ALL_TO_COMPLETE,
+      payload:{
+        isChecked
+      }
+    })
   }
 
+  //清除已完成
+  const handleClearCompleted = () => {
+    dispatch({
+      type:ACTIONS.CLEAR_COMPLETED
+    })  
+    setDisplayTodos(todos)
+  }
+
+  //筛选
   const getAllTodos = () => {
     const newTodos = [...todos]
     setDisplayTodos(newTodos)
   }
-
+  
   const getActiveTodos = () => {
     const newTodos = todos.filter(todo => !todo.complete);
     setDisplayTodos(newTodos)
@@ -112,26 +162,30 @@ function App() {
   return (
     <div className="App">
       {/* <ErrorBoundary> */}
-        <Header />
-        <TodoInput
+      <Header />
+      <TodoInput
+        name={name}
+        setName={setName}
+        dispatch={dispatch}
+        handleSubmit={handleSubmit}
+        allToComplete={allToComplete}
+      />
+      <TodoItems
+        todos={todos}
+        displayTodos={displayTodos}
+        toggleTodo={toggleTodo}
+        deleteTodo={deleteTodo}
+        dispatch={dispatch}
+        handleEdit={handleEdit}
+      />
+      <TodoFilter
           todos={todos}
-          handleSubmit={handleSubmit}
-          allToComplete={allToComplete}
-        />
-        <TodoItems
-          todos={todos}
-          displayTodos={displayTodos}
-          toggleTodo={toggleTodo}
-          deleteTodo={deleteTodo}
-          handleEdit={handleEdit}
-        />
-        <TodoFilter
-          todos={todos}
+          dispatch={dispatch}
           getAllTodos={getAllTodos}
           getActiveTodos={getActiveTodos}
           getCompletedTodos={getCompletedTodos}
           handleClearCompleted={handleClearCompleted}
-        />
+      />
         <Footer />
       {/* </ErrorBoundary> */}
 

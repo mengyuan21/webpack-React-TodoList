@@ -20,7 +20,7 @@ const Button = styled.button`
     }
 `;
 
-export default function TodoFilter({ todos, getAllTodos, getActiveTodos, getCompletedTodos, handleClearCompleted }) {
+export default function TodoFilter({ todos, dispatch,getAllTodos, getActiveTodos, getCompletedTodos, handleClearCompleted }) {
     return (
         <div className="todo-filter" >
             <div className="numbers-left-todo" >

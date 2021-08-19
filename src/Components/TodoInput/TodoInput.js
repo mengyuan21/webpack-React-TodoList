@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
+import React  from 'react';
 import "./TodoInput.css";
 
-export default function TodoInput({ todos, handleSubmit, allToComplete}) {
-
-    const [inputValue, setInputValue] = useState('');
+export default function TodoInput({ name,setName,handleSubmit, allToComplete}) {
 
      const handleAllToComplete =(e) => {
         const target = e.target;
@@ -11,24 +9,19 @@ export default function TodoInput({ todos, handleSubmit, allToComplete}) {
         allToComplete(value)
     }
 
-    const handleKeydown =(e) => {
-        if (e.keyCode===13) {
-          setInputValue('')
-          return handleSubmit(inputValue);
-        }
-    }
-
-    //input 绑定onChange
-    const onChange = (e) => {
-        const inputValue = e.target.value;
-        setInputValue(inputValue);
-    }
-
     return (
         <div className="todo-input">
-            <input type="checkbox" className="all-complete-checkbox" onChange={handleAllToComplete} data-testid="checkbox-test"/>
+            <input type="checkbox" className="all-complete-checkbox" onChange={handleAllToComplete} data-testid="checkbox-test" />
             {/* <button onClick={allToComplete} className="input-button">﹀</button> */}
-            <input className="new-todo" placeholder="What needs to be done ?" type="text" onKeyDown={handleKeydown} onChange={onChange} value={inputValue} data-testid="input-keydown"/>
+            <form onSubmit={handleSubmit}>
+                <input
+                    className="new-todo"
+                    placeholder="What needs to be done ?" 
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+             </form>
         </div>
     )
 }
