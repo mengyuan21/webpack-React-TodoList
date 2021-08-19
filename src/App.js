@@ -10,7 +10,6 @@ import { ACTIONS } from './constants/actions';
 const TODOS_LOCAL_STORAGE_KEY = "todoList.todos";
 const initialState = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
 export const TodosContext = React.createContext();
-export const DisplayTodosContext = React.createContext();
 
 function reducer(todos, action) {
   switch (action.type) {
