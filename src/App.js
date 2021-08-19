@@ -163,26 +163,28 @@ function App() {
         handleSubmit={handleSubmit}
         allToComplete={allToComplete}
       />
-      <TodosContext.Provider value={todos} >
-        <DisplayTodosContext.Provider value={displayTodos}>
-          <TodoItems
-            dispatch={dispatch}
-            displayTodos={displayTodos}
-            toggleTodo={toggleTodo}
-            deleteTodo={deleteTodo}
-            handleEdit={handleEdit}
-          />
-        </DisplayTodosContext.Provider>
-      </TodosContext.Provider>
 
-      <TodoFilter
-        todos={todos}
-        dispatch={dispatch}
-        getAllTodos={getAllTodos}
-        getActiveTodos={getActiveTodos}
-        getCompletedTodos={getCompletedTodos}
-        handleClearCompleted={handleClearCompleted}
-      />
+      <DisplayTodosContext.Provider value={displayTodos}>
+        <TodoItems
+          dispatch={dispatch}
+          displayTodos={displayTodos}
+          toggleTodo={toggleTodo}
+          deleteTodo={deleteTodo}
+          handleEdit={handleEdit}
+        />
+      </DisplayTodosContext.Provider>
+
+      <TodosContext.Provider value={todos} >
+        <TodoFilter
+          // todos={todos}
+          dispatch={dispatch}
+          getAllTodos={getAllTodos}
+          getActiveTodos={getActiveTodos}
+          getCompletedTodos={getCompletedTodos}
+          handleClearCompleted={handleClearCompleted}
+        />
+      </TodosContext.Provider >
+
       <Footer />
       {/* </ErrorBoundary> */}
 

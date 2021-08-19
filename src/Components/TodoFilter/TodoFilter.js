@@ -1,5 +1,6 @@
-import React from 'react';
+import React,{ useContext } from 'react';
 import "./TodoFilter.css";
+import { TodosContext } from '../../App';
 import styled from 'styled-components';
 
 
@@ -20,7 +21,10 @@ const Button = styled.button`
     }
 `;
 
-export default function TodoFilter({ todos, dispatch,getAllTodos, getActiveTodos, getCompletedTodos, handleClearCompleted }) {
+export default function TodoFilter({ dispatch,getAllTodos, getActiveTodos, getCompletedTodos, handleClearCompleted }) {
+    
+    const todos = useContext(TodosContext)
+
     return (
         <div className="todo-filter" >
             <div className="numbers-left-todo" >
