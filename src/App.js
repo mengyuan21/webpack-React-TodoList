@@ -1,22 +1,14 @@
 import './App.css';
-import React, { useState, useEffect, useReducer, useContext, createContext } from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
 import Header from './Components/Header/Header';
 import TodoItems from './Components/TodoItems/TodoItems';
 import Footer from './Components/Footer/Footer';
 import TodoInput from './Components/TodoInput/TodoInput';
 import TodoFilter from './Components/TodoFilter/TodoFilter';
+import { ACTIONS } from './constants/actions';
 
 const TODOS_LOCAL_STORAGE_KEY = "todoList.todos";
 const initialState = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
-
-export const ACTIONS = {
-  ADD_TODO: 'submit_todo',
-  EDIT_TODO: 'edit_todo',
-  DELETE_TODO: 'delete_todo',
-  TOGGLE_TODO: 'toggle_todo',
-  ALL_TO_COMPLETE: 'all_to_complete',
-  CLEAR_COMPLETED:'clear_completed',
-}
 
 function reducer(todos, action) {
   switch (action.type) {
@@ -24,35 +16,35 @@ function reducer(todos, action) {
       return [...todos, newTodos(action.payload.name)];
     case ACTIONS.EDIT_TODO:
       return todos.map(todo => {
-        if(todo.id = action.payload.id){
+        if (todo.id = action.payload.id) {
           return todo.name = action.payload.name
         }
         return todo
-      }) 
+      })
     case ACTIONS.DELETE_TODO:
       return todos.filter(todo => todo.id !== action.payload.id)
     case ACTIONS.TOGGLE_TODO:
       return todos.map(todo => {
-        if (todo.id === action.payload.id){
-          return {...todo, complete: !todo.complete};
+        if (todo.id === action.payload.id) {
+          return { ...todo, complete: !todo.complete };
         }
         return todo
       })
     case ACTIONS.ALL_TO_COMPLETE:
       return todos.map(todo => {
-        if(action.payload.isChecked){
-          todo.complete =true
+        if (action.payload.isChecked) {
+          todo.complete = true
           return todo
         }
         else {
           todo.complete = false;
           return todo
         }
-      }) 
+      })
     case ACTIONS.CLEAR_COMPLETED:
-      return todos.filter(todo => !todo.complete) 
+      return todos.filter(todo => !todo.complete)
     default:
-      return todos     
+      return todos
   }
 }
 
@@ -65,20 +57,15 @@ function newTodos(name) {
   }
 }
 
-export const AppContext = createContext();
 
 function App() {
   const [todos, dispatch] = useReducer(reducer, initialState)
   const [displayTodos, setDisplayTodos] = useState(todos)
   const [name, setName] = useState("")
 
-  //local.storage: todos
-  //set: 每次更新都需要set一次，因此dependency为：[todos]
   useEffect(() => {
-    //  localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
     localStorage.setItem(TODOS_LOCAL_STORAGE_KEY, JSON.stringify(todos))
     setDisplayTodos(todos)
-    console.log(todos)
   },
     [todos])
 
@@ -87,18 +74,19 @@ function App() {
     e.preventDefault();
     if (name === "") return
     dispatch({
-      type:ACTIONS.ADD_TODO,
+      type: ACTIONS.ADD_TODO,
       payload: {
         name
       }
     })
     setName("")
   }
-
+  //编辑todo
   function handleEdit(name, id) {
+    console.log(id)
     dispatch({
-      type:ACTIONS.EDIT_TODO,
-      payload:{
+      type: ACTIONS.EDIT_TODO,
+      payload: {
         name,
         id
       }
@@ -107,10 +95,10 @@ function App() {
 
   //删除todo
   const deleteTodo = (id) => {
-    dispatch ({
-      type:ACTIONS.DELETE_TODO,
-      payload:{
-        id:id
+    dispatch({
+      type: ACTIONS.DELETE_TODO,
+      payload: {
+        id: id
       }
     })
   }
@@ -127,7 +115,7 @@ function App() {
   const allToComplete = (isChecked) => {
     dispatch({
       type: ACTIONS.ALL_TO_COMPLETE,
-      payload:{
+      payload: {
         isChecked
       }
     })
@@ -136,8 +124,8 @@ function App() {
   //清除已完成
   const handleClearCompleted = () => {
     dispatch({
-      type:ACTIONS.CLEAR_COMPLETED
-    })  
+      type: ACTIONS.CLEAR_COMPLETED
+    })
     setDisplayTodos(todos)
   }
 
@@ -146,7 +134,7 @@ function App() {
     const newTodos = [...todos]
     setDisplayTodos(newTodos)
   }
-  
+
   const getActiveTodos = () => {
     const newTodos = todos.filter(todo => !todo.complete);
     setDisplayTodos(newTodos)
@@ -160,36 +148,39 @@ function App() {
 
 
   return (
-    <div className="App">
-      {/* <ErrorBoundary> */}
-      <Header />
-      <TodoInput
-        name={name}
-        setName={setName}
-        dispatch={dispatch}
-        handleSubmit={handleSubmit}
-        allToComplete={allToComplete}
-      />
-      <TodoItems
-        todos={todos}
-        displayTodos={displayTodos}
-        toggleTodo={toggleTodo}
-        deleteTodo={deleteTodo}
-        dispatch={dispatch}
-        handleEdit={handleEdit}
-      />
-      <TodoFilter
+    // <TodoContext.Provider>
+      <div className="App">
+        {/* <ErrorBoundary> */}
+        <Header />
+        <TodoInput
+          name={name}
+          setName={setName}
+          dispatch={dispatch}
+          handleSubmit={handleSubmit}
+          allToComplete={allToComplete}
+        />
+        <TodoItems
+          todos={todos}
+          displayTodos={displayTodos}
+          toggleTodo={toggleTodo}
+          deleteTodo={deleteTodo}
+          dispatch={dispatch}
+          handleEdit={handleEdit}
+        />
+        <TodoFilter
           todos={todos}
           dispatch={dispatch}
           getAllTodos={getAllTodos}
           getActiveTodos={getActiveTodos}
           getCompletedTodos={getCompletedTodos}
           handleClearCompleted={handleClearCompleted}
-      />
+        />
         <Footer />
-      {/* </ErrorBoundary> */}
+        {/* </ErrorBoundary> */}
 
-    </div>
+      </div>
+    // </TodoContext.Provider>
+
   );
 }
 

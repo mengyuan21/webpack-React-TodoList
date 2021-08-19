@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import "./Todo.css";
-import { ACTIONS } from '../../../App';
+import { ACTIONS } from '../../../constants/actions';
 
 export default function Todo({ todo, handleEdit, dispatch}) {
 
@@ -22,7 +22,7 @@ export default function Todo({ todo, handleEdit, dispatch}) {
     
     const handleKeydown = (e) => {
        if(e.keyCode===13) {
-           handleEdit(editTodo,todo.id)
+           handleEdit(editTodo, todo.id)
        }
     }
 
