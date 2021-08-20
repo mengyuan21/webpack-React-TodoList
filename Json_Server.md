@@ -43,7 +43,6 @@ function App()   {
                     console.log(err.message)
                     setIsPending(false)
                     setError(err.message)
-
                 })
             }, 1000);
     },[])
