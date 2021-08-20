@@ -15,15 +15,18 @@ function reducer(todos, action) {
   switch (action.type) {
     case ACTIONS.ADD_TODO:
       return [...todos, newTodos(action.payload.name)];
+
     case ACTIONS.EDIT_TODO:
       return todos.map(todo => {
         if (todo.id === action.payload.id) {
-          return todo.name = action.payload.name
+          return { ...todo, name: action.payload.name };
         }
         return todo
       })
+
     case ACTIONS.DELETE_TODO:
       return todos.filter(todo => todo.id !== action.payload.id)
+    
     case ACTIONS.TOGGLE_TODO:
       return todos.map(todo => {
         if (todo.id === action.payload.id) {
@@ -31,6 +34,7 @@ function reducer(todos, action) {
         }
         return todo
       })
+
     case ACTIONS.ALL_TO_COMPLETE:
       return todos.map(todo => {
         if (action.payload.isChecked) {
@@ -42,6 +46,7 @@ function reducer(todos, action) {
           return todo
         }
       })
+
     case ACTIONS.CLEAR_COMPLETED:
       return todos.filter(todo => !todo.complete)
     default:
@@ -63,16 +68,12 @@ function App() {
   const [displayTodos, setDisplayTodos] = useState(todos)
   const [name, setName] = useState("")
 
-  //local.storage: todos
-  //set: 每次更新都需要set一次，因此dependency为：[todos]
   useEffect(() => {
-    //  localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
     localStorage.setItem(TODOS_LOCAL_STORAGE_KEY, JSON.stringify(todos))
     setDisplayTodos(todos)
   },
     [todos])
 
-  //添加todo
   function handleSubmit(e) {
     e.preventDefault();
     if (name === "") return
@@ -161,14 +162,14 @@ function App() {
           allToComplete={allToComplete}
         />
 
-          <TodoItems
-            displayTodos={displayTodos}
-            dispatch={dispatch}
-            displayTodos={displayTodos}
-            toggleTodo={toggleTodo}
-            deleteTodo={deleteTodo}
-            handleEdit={handleEdit}
-          />
+        <TodoItems
+          displayTodos={displayTodos}
+          dispatch={dispatch}
+          displayTodos={displayTodos}
+          toggleTodo={toggleTodo}
+          deleteTodo={deleteTodo}
+          handleEdit={handleEdit}
+        />
 
         <TodoFilter
           dispatch={dispatch}
