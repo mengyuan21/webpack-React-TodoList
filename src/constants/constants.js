@@ -1,0 +1,1 @@
+export const TODOS_LOCAL_STORAGE_KEY = "todoList.todos";

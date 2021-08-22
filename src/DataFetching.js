@@ -1,6 +1,6 @@
 import React, {useReducer, useEffect} from 'react'
 import axios from 'axios';
-import { BASE_URL } from './actions/apiUtils';
+import { BASE_URL } from './fetchData/apiUtils';
 
 
 const initialState = {

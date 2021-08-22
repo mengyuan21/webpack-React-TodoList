@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
+import React, {useContext, useRef, useState} from 'react';
 import "./Todo.css";
-import { ACTIONS } from '../../../constants/actions';
+import { ACTIONS } from '../../../actions/actions';
+import { TodosContext } from "../../../Context/context";
 
-export default function Todo({ todo, handleEdit, dispatch}) {
+export default function Todo({ todo, handleEdit }) {
 
-    const [editTodo, setEditTodo] = useState('');
+    const { dispatch } = useContext(TodosContext);
+
+    const [editTodo, setEditTodo] = useState(todo.name);
+    const inputBox = useRef(null)
 
     const handleToggleCheckbox=() => {
         dispatch({
@@ -22,7 +26,14 @@ export default function Todo({ todo, handleEdit, dispatch}) {
     
     const handleKeydown = (e) => {
        if(e.keyCode===13) {
-           handleEdit(editTodo, todo.id)
+           dispatch({
+               type: ACTIONS.EDIT_TODO,
+               payload: {
+                   id: todo.id,
+                   name: editTodo
+               }
+           })
+           inputBox.current.blur();
        }
     }
 
@@ -37,9 +48,13 @@ export default function Todo({ todo, handleEdit, dispatch}) {
                 onChange={handleToggleCheckbox}
             />
             <div> 
-                {todo.complete? 
-                <input className="todo-message-completed" defaultValue={todo.name} onChange={onChange} onKeyDown={handleKeydown} />  : 
-                <input className="todo-message-normal" defaultValue={todo.name} onChange={onChange} onKeyDown={handleKeydown}/>  } 
+                <input
+                    className= { todo.complete ? "todo-message-completed":"todo-message-normal" }
+                    defaultValue={editTodo}
+                    onChange={onChange}
+                    onKeyDown={handleKeydown}
+                    ref={inputBox}
+                />
             </div>
             <button className="todo-delete" onClick={handleDelete} > X </button>
         </div>

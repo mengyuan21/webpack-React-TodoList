@@ -1,19 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Todo from './Todo/Todo';
 
-export default function TodoItems({ displayTodos, toggleTodo, deleteTodo, todoNameRef,editTodoItem,dispatch, handleEdit }) {
+export default function TodoItems({ displayTodos, editTodoItem }) {
 
     return (
         displayTodos.map(todo => {
             return (
             <Todo 
             key={todo.id} 
-            todo={todo} 
-            toggleTodo={toggleTodo} 
-            deleteTodo={deleteTodo} 
-            editTodoItem={editTodoItem}
-            handleEdit = {handleEdit}
-            dispatch={dispatch} />
+            todo={todo}
+            editTodoItem={editTodoItem} />
             )
         })
     )
