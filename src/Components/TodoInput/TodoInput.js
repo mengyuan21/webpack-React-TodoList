@@ -2,32 +2,49 @@ import React, {useContext, useState} from 'react';
 import "./TodoInput.css";
 import { ACTIONS } from "../../actions/actions";
 import { TodosContext } from "../../Context/context";
+import {addTodos, updateAllTodos} from "../../fetchData/apiUtils";
 
 export default function TodoInput() {
 
-    const { dispatch } = useContext(TodosContext)
+    const { todos, dispatch } = useContext(TodosContext)
     const [inputValue, setInputValue] = useState('')
 
-    function handleSubmit(e) {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (inputValue === "") return
-        dispatch({
-            type: ACTIONS.ADD_TODO,
-            payload: {
-                name: inputValue
-            }
+        const newTodo = getNewTodos(inputValue)
+        addTodos(newTodo).then(todo => {
+            dispatch({
+                type: ACTIONS.ADD_TODO,
+                payload: {
+                    todo
+                }
+            })
         })
+
         setInputValue("")
     }
-     const handleAllToComplete =(e) => {
+
+    const handleAllToComplete =(e) => {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
-        dispatch({
-            type: ACTIONS.ALL_TO_COMPLETE,
-            payload: {
-                isChecked: value
-            }
+        updateAllTodos(todos, value).then(() => {
+            dispatch({
+                type: ACTIONS.ALL_TO_COMPLETE,
+                payload: {
+                    isChecked: value
+                }
+            })
         })
+    }
+
+    const getNewTodos = (name) => {
+        const id = Date.now()
+        return {
+            id: id,
+            name,
+            complete: false
+        }
     }
 
     return (

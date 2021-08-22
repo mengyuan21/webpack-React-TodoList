@@ -7,13 +7,16 @@ export const TodosContext = React.createContext();
 
 const reducer = (todos, action)=> {
     switch (action.type) {
+        case ACTIONS.SET_TODO:
+            return action.payload.todos
+
         case ACTIONS.ADD_TODO:
-            return [...todos, newTodos(action.payload.name)];
+            return [...todos, action.payload.todo];
 
         case ACTIONS.EDIT_TODO:
             return todos.map(todo => {
-                if (todo.id === action.payload.id) {
-                    return { ...todo, name: action.payload.name };
+                if (todo.id === action.payload.todo.id) {
+                    return action.payload.todo;
                 }
                 return todo
             })
@@ -23,8 +26,8 @@ const reducer = (todos, action)=> {
 
         case ACTIONS.TOGGLE_TODO:
             return todos.map(todo => {
-                if (todo.id === action.payload.id) {
-                    return { ...todo, complete: !todo.complete };
+                if (todo.id === action.payload.todo.id) {
+                    return action.payload.todo;
                 }
                 return todo
             })
@@ -45,15 +48,6 @@ const reducer = (todos, action)=> {
             return todos.filter(todo => !todo.complete)
         default:
             return todos
-    }
-}
-
-const newTodos = (name) => {
-    const id = Date.now()
-    return {
-        id: id,
-        name,
-        complete: false
     }
 }
 

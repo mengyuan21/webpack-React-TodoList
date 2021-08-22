@@ -2,8 +2,9 @@ import React, {useContext, useRef, useState} from 'react';
 import "./Todo.css";
 import { ACTIONS } from '../../../actions/actions';
 import { TodosContext } from "../../../Context/context";
+import { deleteTodos, updateTodos } from "../../../fetchData/apiUtils";
 
-export default function Todo({ todo, handleEdit }) {
+export default function Todo({ todo }) {
 
     const { dispatch } = useContext(TodosContext);
 
@@ -11,27 +12,30 @@ export default function Todo({ todo, handleEdit }) {
     const inputBox = useRef(null)
 
     const handleToggleCheckbox=() => {
-        dispatch({
-            type: ACTIONS.TOGGLE_TODO,
-            payload: {id: todo.id}
+        updateTodos(todo.id, {complete: !todo.complete}).then((returnTodo) => {
+            dispatch({
+                type: ACTIONS.TOGGLE_TODO,
+                payload: { todo: returnTodo }
+            })
         })
     }
 
     const handleDelete = () => {
-        dispatch({
-            type: ACTIONS.DELETE_TODO,
-            payload: {id: todo.id}
+        deleteTodos(todo.id).then(() => {
+            dispatch({
+                type: ACTIONS.DELETE_TODO,
+                payload: {id: todo.id}
+            })
         })
     }
     
     const handleKeydown = (e) => {
        if(e.keyCode===13) {
-           dispatch({
-               type: ACTIONS.EDIT_TODO,
-               payload: {
-                   id: todo.id,
-                   name: editTodo
-               }
+           updateTodos(todo.id, { name: editTodo }).then((returnTodo) => {
+               dispatch({
+                   type: ACTIONS.EDIT_TODO,
+                   payload: { todo: returnTodo }
+               })
            })
            inputBox.current.blur();
        }

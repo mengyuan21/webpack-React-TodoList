@@ -17,7 +17,15 @@ module.exports = {
                 use: ['style-loader', 'css-loader', 'postcss-loader']
             }, {
                 test: /\.js[x]?$/,
-                use: 'babel-loader',
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [],
+                        plugins: [
+                            '@babel/plugin-transform-runtime'
+                        ]
+                    }
+                },
                 exclude: /node_modules/
             }, {
                 test: /\.less$/,

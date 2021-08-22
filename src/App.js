@@ -7,10 +7,21 @@ import TodoInput from './Components/TodoInput/TodoInput';
 import TodoFilter from './Components/TodoFilter/TodoFilter';
 import { TodosContext } from "./Context/context";
 import { TODOS_LOCAL_STORAGE_KEY} from "./constants/constants";
+import {ACTIONS} from "./actions/actions";
+import {getTodos} from "./fetchData/apiUtils";
 
 function App() {
-  const { todos } = useContext(TodosContext);
+  const { todos, dispatch } = useContext(TodosContext);
   const [displayTodos, setDisplayTodos] = useState([]);
+
+  useEffect(() => {
+      getTodos().then(data => {
+          dispatch({
+              type: ACTIONS.SET_TODO,
+              payload: {todos: data}
+          })
+      })
+  },[])
 
   useEffect(() => {
       localStorage.setItem(TODOS_LOCAL_STORAGE_KEY, JSON.stringify(todos));

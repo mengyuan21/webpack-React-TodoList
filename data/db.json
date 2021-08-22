@@ -1,24 +1,24 @@
 {
-    "todos":[
-        {
-            "id" : 1,
-            "name": "Learn Json Server",
-            "complete": false
-        },
-        {
-            "id" : 2,
-            "name": "Refact Todo List",
-            "complete": false
-        },
-        {
-            "id" : 3,
-            "name": "Get Up Early",
-            "complete": true
-        },
-        {
-            "id" : 4,
-            "name": "Eat Delicious Food",
-            "complete": true
-        }
-    ]
+  "todos": [
+    {
+      "id": 1,
+      "name": "Learn Json Server",
+      "complete": false
+    },
+    {
+      "id": 2,
+      "name": "Refact Todo List",
+      "complete": false
+    },
+    {
+      "id": 3,
+      "name": "Get Up Early2",
+      "complete": false
+    },
+    {
+      "id": 4,
+      "name": "Eat Delicious Food",
+      "complete": false
+    }
+  ]
 }

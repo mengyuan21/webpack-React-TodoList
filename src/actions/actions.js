@@ -1,4 +1,5 @@
 export const ACTIONS = {
+    SET_TODO: 'get_todo',
     ADD_TODO: 'submit_todo',
     EDIT_TODO: 'edit_todo',
     DELETE_TODO: 'delete_todo',

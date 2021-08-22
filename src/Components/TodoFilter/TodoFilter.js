@@ -3,6 +3,7 @@ import "./TodoFilter.css";
 import styled from 'styled-components';
 import { TodosContext } from "../../Context/context";
 import { ACTIONS } from "../../actions/actions";
+import {deleteAllTodos} from "../../fetchData/apiUtils";
 
 
 const Button = styled.button`
@@ -27,8 +28,11 @@ export default function TodoFilter({ getAllTodos, getActiveTodos, getCompletedTo
     const { todos, dispatch } = useContext(TodosContext);
     //清除已完成
     const handleClearCompleted = () => {
-        dispatch({
-            type: ACTIONS.CLEAR_COMPLETED
+        const completedTodos = todos.filter(todo => todo.complete)
+        deleteAllTodos(completedTodos).then((todoIds) => {
+            dispatch({
+                type: ACTIONS.CLEAR_COMPLETED
+            })
         })
     }
     return (
