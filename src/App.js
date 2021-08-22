@@ -8,7 +8,10 @@ import TodoFilter from './Components/TodoFilter/TodoFilter';
 import { ACTIONS } from './constants/actions';
 
 const TODOS_LOCAL_STORAGE_KEY = "todoList.todos";
+
 const initialState = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
+
+
 export const TodosContext = React.createContext();
 
 function reducer(todos, action) {
@@ -180,8 +183,6 @@ function App() {
         />
         <Footer />
       </TodosContext.Provider>
-
-
     </div>
   );
 }

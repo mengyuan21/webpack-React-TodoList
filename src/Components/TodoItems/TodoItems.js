@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Todo from './Todo/Todo';
 
 export default function TodoItems({ displayTodos, toggleTodo, deleteTodo, todoNameRef,editTodoItem,dispatch, handleEdit }) {
-    
+
     return (
         displayTodos.map(todo => {
             return (
@@ -11,7 +11,6 @@ export default function TodoItems({ displayTodos, toggleTodo, deleteTodo, todoNa
             todo={todo} 
             toggleTodo={toggleTodo} 
             deleteTodo={deleteTodo} 
-            todoNameRef={todoNameRef} 
             editTodoItem={editTodoItem}
             handleEdit = {handleEdit}
             dispatch={dispatch} />
