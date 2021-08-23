@@ -5,12 +5,11 @@ import TodoItems from './Components/TodoItems/TodoItems';
 import Footer from './Components/Footer/Footer';
 import TodoInput from './Components/TodoInput/TodoInput';
 import TodoFilter from './Components/TodoFilter/TodoFilter';
-import { ACTIONS } from './constants/actions';
+import { ACTIONS } from './actions/actions';
 
 const TODOS_LOCAL_STORAGE_KEY = "todoList.todos";
 
-export const initialState = []
-
+export const initialState = [];
 
 export const TodosContext = React.createContext();
 

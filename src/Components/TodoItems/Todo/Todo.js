@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import "./Todo.css";
-import { ACTIONS } from '../../../constants/actions';
+import { ACTIONS } from '../../../actions/actions';
 
 export default function Todo({ todo, handleEdit, dispatch}) {
 
