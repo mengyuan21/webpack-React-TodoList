@@ -9,7 +9,7 @@ import { ACTIONS } from './constants/actions';
 
 const TODOS_LOCAL_STORAGE_KEY = "todoList.todos";
 
-const initialState = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
+export const initialState = []
 
 
 export const TodosContext = React.createContext();
@@ -67,7 +67,7 @@ function newTodos(name) {
 }
 
 function App() {
-  const [todos, dispatch] = useReducer(reducer, initialState)
+  const [todos, dispatch] = useReducer(reducer, initialState, (initial) => JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY)) || initial)
   const [displayTodos, setDisplayTodos] = useState(todos)
   const [name, setName] = useState("")
 
