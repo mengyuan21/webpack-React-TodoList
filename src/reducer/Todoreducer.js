@@ -1,26 +1,34 @@
-import * as actions from '../Actions/ActionTypes.js'
+import {
+  ADD_TODOS,
+  DELETE_TODOS,
+  EDIT_TODO,
+  TOGGLE_TODOS,
+  ALL_TO_COMPLETE,
+  CLEAR_COMPLETED
+} from '../Actions/ActionTypes'
+
 
 const initialState = [];
 
 const reducer = (todos = initialState, action) =>  {
   switch (action.type) {
     case actions.ADD_TODOS:
-      return [...todos, newTodos(action.payload.name)];
+      return [...todos, newTodos(action.name)];
 
     case actions.EDIT_TODO:
       return todos.map(todo => {
-        if (todo.id === action.payload.id) {
-          return { ...todo, name: action.payload.name };
+        if (todo.id === action.id) {
+          return { ...todo, name: action.name };
         }
         return todo
       })
 
     case actions.DELETE_TODOS:
-      return todos.filter(todo => todo.id !== action.payload.id)
+      return todos.filter(todo => todo.id !== action.id)
     
     case actions.TOGGLE_TODOS:
       return todos.map(todo => {
-        if (todo.id === action.payload.id) {
+        if (todo.id === action.id) {
           return { ...todo, complete: !todo.complete };
         }
         return todo
@@ -28,7 +36,7 @@ const reducer = (todos = initialState, action) =>  {
 
     case actions.ALL_TO_COMPLETE:
       return todos.map(todo => {
-        if (action.payload.isChecked) {
+        if (action.isChecked) {
           todo.complete = true
           return todo
         }
