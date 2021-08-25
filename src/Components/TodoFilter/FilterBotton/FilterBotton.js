@@ -18,13 +18,15 @@ background-color: white;
 }
 `;
 
-export default function FilterBotton({getAllTodos, getActiveTodos, getCompletedTodos}) {
+export default function FilterBotton({handler}) {
 
     return (
         <div className="filter-buttons" >
-                <Button data-testid="filter-button" onClick={getAllTodos} > All </Button>
-                <Button onClick={getActiveTodos} > Active </Button>
-                <Button onClick={getCompletedTodos} > Completed </Button>
+                <Button data-testid="filter-button" onClick={() => handler("all")} > All </Button>
+                <Button onClick={() => handler("active")} > Active </Button>
+                <Button onClick={() => handler("complete")} > Completed </Button>
         </div>  
     )
+
+
 }

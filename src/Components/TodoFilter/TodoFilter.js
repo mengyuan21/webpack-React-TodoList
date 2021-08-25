@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const selectTodos = todos => todos
 
-export default function TodoFilter({getAllTodos, getActiveTodos, getCompletedTodos, handleClearCompleted}) {
+export default function TodoFilter({getAllTodos, handler, handleClearCompleted}) {
     
     const todos = useSelector(selectTodos)
     
@@ -17,9 +17,7 @@ export default function TodoFilter({getAllTodos, getActiveTodos, getCompletedTod
             </div>
 
             <FilterBotton 
-            getAllTodos={getAllTodos} 
-            getActiveTodos={getActiveTodos}
-            getCompletedTodos={getCompletedTodos}
+            handler={handler}
             />
 
             <button className="clear-completed" data-testid="clear-completed"  onClick={handleClearCompleted} > Clear Completed </button>
