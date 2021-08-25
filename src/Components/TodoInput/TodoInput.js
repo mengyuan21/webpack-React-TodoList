@@ -1,15 +1,31 @@
 import React, {useState} from 'react';
 import "./TodoInput.css";
+import {  useDispatch } from 'react-redux';
 
-export default function TodoInput({ todos, handleSubmit, allToComplete}) {
 
+export default function TodoInput({ allToComplete }) {
+    
     const [inputValue, setInputValue] = useState('');
+    const [name, setName] = useState("");
+    const dispatch = useDispatch();
 
      const handleAllToComplete =(e) => {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         allToComplete(value)
     }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        if (name === '') return
+        dispatch({
+          type:ADD_TODOS,
+          payload:{
+            name
+          }
+        })
+        setName("");
+      }
 
     const handleKeydown =(e) => {
         if (e.keyCode===13) {

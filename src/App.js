@@ -5,20 +5,24 @@ import TodoItems from './Components/TodoItems/TodoItems';
 import Footer from './Components/Footer/Footer';
 import TodoInput from './Components/TodoInput/TodoInput';
 import TodoFilter from './Components/TodoFilter/TodoFilter';
-import ErrorBoundary from './Components/ErrorBoundary';
+import { useSelector, useDispatch } from 'react-redux';
+import { ADD_TODOS, ALL_TO_COMPLETE, CLEAR_COMPLETED, DELETE_TODOS, EDIT_TODO } from './Actions/ActionTypes';
+
+const selectTodos = state => state.todos
 
 const TODOS_LOCAL_STORAGE_KEY = "todoList.todos";
 
 function App() {
 
-  const [todos, setTodos] = useState([]);
+  // const [todos, setTodos] = useState([]); 
+  const todos = useSelector(selectTodos);
   const [displayTodos, setDisplayTodos] = useState(todos)
+  const dispatch = useDispatch();
 
   //get: 只get一次，因此dependency为：[]，因为[]永远不变
   useEffect(() => {
-    // const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
     const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
-    setTodos(storedTodos)
+    // setTodos(storedTodos)
     setDisplayTodos(storedTodos)
   }, [])
 
@@ -28,69 +32,25 @@ function App() {
     //  localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
     localStorage.setItem(TODOS_LOCAL_STORAGE_KEY, JSON.stringify(todos))
     setDisplayTodos(todos)
-  },
-    [todos])
+  },[todos])
 
-
-  //添加todo
-  function handleSubmit(name) {
-    if (name === '') return
-    const id = Date.now()
-    setTodos(prevTodos => {
-      return [...prevTodos, { id: id, name: name, complete: false }]
-    })
-  }
-
-  function handleEdit(name, id) {
-    if(name === '') return
-    const newTodos = [...todos]
-    // console.log(newTodos)
-    const todoitem = newTodos.find(todo => (todo.id === id))
-    todoitem.name = name
-    setTodos(newTodos)
-    setDisplayTodos(newTodos)
-  }
-
-
-  const deleteTodo = (id) => {
-    const newTodos = [...todos];
-    const deltededList = newTodos.filter(todo => todo.id !== id)
-    setTodos(deltededList);
-  }
-
-  //标记todo完成
-  const toggleTodo = (id) => {
-    const newTodos = [...todos];
-    const todoitem = newTodos.find(todo => todo.id === id)
-    todoitem.complete = !todoitem.complete
-    setTodos(newTodos)
-    setDisplayTodos(newTodos)
-  }
 
   //清除已完成
   const handleClearCompleted = () => {
-    const newTodos = todos.filter(todo => !todo.complete)
-    setTodos(newTodos)
+    dispatch({
+      type:CLEAR_COMPLETED
+    })
     setDisplayTodos(newTodos)
   }
 
   //全部标记已完成/未完成
   const allToComplete = (isChecked) => {
-    if (isChecked) {
-      const newTodos = todos.map((todo) => {
-        todo.complete = true;
-        return todo;
-      })
-      setTodos(newTodos)
-      setDisplayTodos(newTodos)
-    } else {
-      const newTodos = todos.map((todo) => {
-        todo.complete = false;
-        return todo;
-      })
-      setTodos(newTodos)
-      setDisplayTodos(newTodos)
-    }
+    dispatch({
+      type:ALL_TO_COMPLETE,
+      payload:{
+        isChecked
+      }
+    })
   }
 
   const getAllTodos = () => {
@@ -109,25 +69,17 @@ function App() {
   }
 
 
-
   return (
     <div className="App">
       {/* <ErrorBoundary> */}
         <Header />
         <TodoInput
-          todos={todos}
-          handleSubmit={handleSubmit}
           allToComplete={allToComplete}
         />
         <TodoItems
-          todos={todos}
           displayTodos={displayTodos}
-          toggleTodo={toggleTodo}
-          deleteTodo={deleteTodo}
-          handleEdit={handleEdit}
         />
         <TodoFilter
-          todos={todos}
           getAllTodos={getAllTodos}
           getActiveTodos={getActiveTodos}
           getCompletedTodos={getCompletedTodos}

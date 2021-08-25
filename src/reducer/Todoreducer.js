@@ -8,14 +8,19 @@ import {
 } from '../Actions/ActionTypes'
 
 
-const initialState = [];
+const initialState = [{
+  id:1,
+  name:"learn redux",
+  complete:true
+}];
 
 const reducer = (todos = initialState, action) =>  {
+  console.log(todos)
   switch (action.type) {
-    case actions.ADD_TODOS:
+    case ADD_TODOS:
       return [...todos, newTodos(action.name)];
 
-    case actions.EDIT_TODO:
+    case EDIT_TODO:
       return todos.map(todo => {
         if (todo.id === action.id) {
           return { ...todo, name: action.name };
@@ -23,10 +28,10 @@ const reducer = (todos = initialState, action) =>  {
         return todo
       })
 
-    case actions.DELETE_TODOS:
+    case DELETE_TODOS:
       return todos.filter(todo => todo.id !== action.id)
     
-    case actions.TOGGLE_TODOS:
+    case TOGGLE_TODOS:
       return todos.map(todo => {
         if (todo.id === action.id) {
           return { ...todo, complete: !todo.complete };
@@ -34,7 +39,7 @@ const reducer = (todos = initialState, action) =>  {
         return todo
       })
 
-    case actions.ALL_TO_COMPLETE:
+    case ALL_TO_COMPLETE:
       return todos.map(todo => {
         if (action.isChecked) {
           todo.complete = true
@@ -46,7 +51,7 @@ const reducer = (todos = initialState, action) =>  {
         }
       })
 
-    case actions.CLEAR_COMPLETED:
+    case CLEAR_COMPLETED:
       return todos.filter(todo => !todo.complete)
     default:
       return todos
@@ -61,6 +66,5 @@ const newTodos = (name) => {
     complete: false
   }
 }
-
 
 export default reducer;

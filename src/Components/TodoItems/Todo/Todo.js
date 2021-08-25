@@ -1,21 +1,43 @@
 import React, {useState} from 'react';
 import "./Todo.css";
+import { useDispatch } from 'react-redux';
+import { DELETE_TODOS, TOGGLE_TODOS } from '../../../Actions/ActionTypes';
 
-export default function Todo({ todo, toggleTodo, deleteTodo, handleEdit}) {
+export default function Todo({ todo }) {
 
     const [editTodo, setEditTodo] = useState('');
+    const dispatch = useDispatch()
 
-    const handleToggleCheckbox=() => {
-        toggleTodo(todo.id)
+    const handleToggleCheckbox=(id) => {
+        dispatch({
+            type:TOGGLE_TODOS,
+            payload:{
+                id
+            }
+        })
     }
 
     const handleDelete = () => {
-        deleteTodo(todo.id)
+        dispatch ({
+            type: DELETE_TODOS,
+            payload: {
+                id:todo.id
+            }
+        })
     }
+
+    function handleEdit(name, id) {
+        dispatch({
+          type: EDIT_TODO,
+          payload:{
+            name,
+            id
+          }
+        })
+      }
 
     const handleKeydown = (e) => {
        if(e.keyCode===13) {
-           console.log(editTodo)
            handleEdit(editTodo,todo.id)
        }
     }

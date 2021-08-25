@@ -1,9 +1,14 @@
 import React from 'react';
 import FilterBotton from './FilterBotton/FilterBotton';
 import "./TodoFilter.css";
+import { useSelector } from 'react-redux';
 
+const selectTodos = state => state.todos
 
-export default function TodoFilter({todos, getAllTodos, getActiveTodos, getCompletedTodos, handleClearCompleted}) {
+export default function TodoFilter({getAllTodos, getActiveTodos, getCompletedTodos, handleClearCompleted}) {
+    
+    const todos = useSelector(selectTodos)
+
     return (
         <div className="todo-filter" >
             <div className="numbers-left-todo" >

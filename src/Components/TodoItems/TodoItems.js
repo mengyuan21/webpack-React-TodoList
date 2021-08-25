@@ -1,12 +1,12 @@
 import React from 'react';
 import Todo from './Todo/Todo';
 
-export default function TodoItems({ todos, displayTodos, toggleTodo, deleteTodo,handleEdit }) {
+export default function TodoItems({ displayTodos }) {
     
     return (
         displayTodos.map(todo => {
             return (
-            <Todo key={todo.id} todos={todos} todo={todo} toggleTodo={toggleTodo} deleteTodo={deleteTodo} handleEdit={handleEdit}/>
+            <Todo key={todo.id}  todo={todo}  handleEdit={handleEdit}/>
             )
         })
     )
