@@ -53,9 +53,7 @@ export default function Todo({ todo }) {
                 onChange={handleToggleCheckbox}
             />
             <div> 
-                {todo.complete? 
-                <input className="todo-message-completed" defaultValue={todo.name} onChange={onChange} onKeyDown={handleKeydown} />  : 
-                <input className="todo-message-normal" defaultValue={todo.name} onChange={onChange} onKeyDown={handleKeydown}/>  } 
+                <input className={ todo.complete? "todo-message-completed" : "todo-message-normal" } defaultValue={todo.name} onChange={onChange} onKeyDown={handleKeydown} /> 
             </div>
             <button className="todo-delete" onClick={handleDelete} > X </button>
         </div>
