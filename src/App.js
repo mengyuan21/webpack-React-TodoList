@@ -8,7 +8,7 @@ import TodoFilter from './Components/TodoFilter/TodoFilter';
 import { useSelector, useDispatch } from 'react-redux';
 import { ADD_TODOS, ALL_TO_COMPLETE, CLEAR_COMPLETED, DELETE_TODOS, EDIT_TODO } from './Actions/ActionTypes';
 
-const selectTodos = state => state.todos
+const selectTodos = todos => todos
 
 const TODOS_LOCAL_STORAGE_KEY = "todoList.todos";
 
@@ -16,12 +16,14 @@ function App() {
 
   // const [todos, setTodos] = useState([]); 
   const todos = useSelector(selectTodos);
+  console.log(todos)
   const [displayTodos, setDisplayTodos] = useState(todos)
   const dispatch = useDispatch();
 
   //get: 只get一次，因此dependency为：[]，因为[]永远不变
   useEffect(() => {
     const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
+    console.log(storedTodos)
     // setTodos(storedTodos)
     setDisplayTodos(storedTodos)
   }, [])

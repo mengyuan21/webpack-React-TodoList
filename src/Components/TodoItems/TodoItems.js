@@ -6,7 +6,7 @@ export default function TodoItems({ displayTodos }) {
     return (
         displayTodos.map(todo => {
             return (
-            <Todo key={todo.id}  todo={todo}  handleEdit={handleEdit}/>
+            <Todo key={todo.id}  todo={todo}/>
             )
         })
     )

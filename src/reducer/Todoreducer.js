@@ -8,14 +8,10 @@ import {
 } from '../Actions/ActionTypes'
 
 
-const initialState = [{
-  id:1,
-  name:"learn redux",
-  complete:true
-}];
+const initialState = [];
 
 const reducer = (todos = initialState, action) =>  {
-  console.log(todos)
+  // console.log(todos)
   switch (action.type) {
     case ADD_TODOS:
       return [...todos, newTodos(action.name)];

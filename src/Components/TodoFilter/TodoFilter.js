@@ -3,11 +3,12 @@ import FilterBotton from './FilterBotton/FilterBotton';
 import "./TodoFilter.css";
 import { useSelector } from 'react-redux';
 
-const selectTodos = state => state.todos
+const selectTodos = todos => todos
 
 export default function TodoFilter({getAllTodos, getActiveTodos, getCompletedTodos, handleClearCompleted}) {
     
     const todos = useSelector(selectTodos)
+    
 
     return (
         <div className="todo-filter" >
