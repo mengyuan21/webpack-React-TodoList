@@ -30,7 +30,7 @@ export const toggleTodo = (id) => ({
 })
 
 export const allToComplete = () => ({
-    type: ACTIONS.ALL_TO_COMPLETE,
+    type: ACTIONS.CHANGE_ALL_COMPLETE,
 })
 
 export const  clearCompleted = () => ({

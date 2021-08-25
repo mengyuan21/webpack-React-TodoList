@@ -6,7 +6,7 @@ import Footer from './Components/Footer/Footer';
 import TodoInput from './Components/TodoInput/TodoInput';
 import TodoFilter from './Components/TodoFilter/TodoFilter';
 import { useSelector, useDispatch } from 'react-redux';
-import { ADD_TODOS, ALL_TO_COMPLETE, CLEAR_COMPLETED, DELETE_TODOS, EDIT_TODO } from './Actions/ActionTypes';
+import { CHANGE_ALL_COMPLETE, CLEAR_COMPLETED, DELETE_TODOS, EDIT_TODO } from './Actions/ActionTypes';
 
 const selectTodos = todos => todos
 
@@ -48,7 +48,7 @@ function App() {
   //全部标记已完成/未完成
   const allToComplete = (isChecked) => {
     dispatch({
-      type:ALL_TO_COMPLETE,
+      type:CHANGE_ALL_COMPLETE,
       payload:{
         isChecked
       }

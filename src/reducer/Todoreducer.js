@@ -3,7 +3,7 @@ import {
   DELETE_TODOS,
   EDIT_TODO,
   TOGGLE_TODOS,
-  ALL_TO_COMPLETE,
+  CHANGE_ALL_COMPLETE,
   CLEAR_COMPLETED
 } from '../Actions/ActionTypes'
 
@@ -35,17 +35,11 @@ const reducer = (todos = initialState, action) =>  {
         return todo
       })
 
-    case ALL_TO_COMPLETE:
-      return todos.map(todo => {
-        if (action.payload.isChecked) {
-          todo.complete = true
-          return todo
-        }
-        else {
-          todo.complete = false;
-          return todo
-        }
-      })
+      case CHANGE_ALL_COMPLETE:
+        return todos.map(todo => ({
+          ...todo,
+          complete: action.payload.isChecked
+        }))  
 
     case CLEAR_COMPLETED:
       return todos.filter(todo => !todo.complete)
