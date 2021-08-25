@@ -10,11 +10,25 @@ import { CHANGE_ALL_COMPLETE, CLEAR_COMPLETED, DELETE_TODOS, EDIT_TODO } from '.
 
 const selectTodos = todos => todos
 
+const TODOS_LOCAL_STORAGE_KEY = "todoList.todos";
+
 function App() {
 
+  // const [todos, setTodos] = useState([]); 
   const todos = useSelector(selectTodos);
+  // console.log(todos)
   const [displayTodos, setDisplayTodos] = useState(todos)
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
+    setDisplayTodos(storedTodos)
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem(TODOS_LOCAL_STORAGE_KEY, JSON.stringify(todos))
+    setDisplayTodos(todos)
+  },[todos])
 
   const handleClearCompleted = () => {
     dispatch({
@@ -46,6 +60,7 @@ function App() {
     const newTodos = todos.filter(todo => todo.complete)
     setDisplayTodos(newTodos)
   }
+
 
   return (
     <div className="App">
