@@ -31,7 +31,6 @@ export default function TodoInput({ allToComplete }) {
     return (
         <div className="todo-input">
             <input type="checkbox" className="all-complete-checkbox" onChange={handleAllToComplete} data-testid="checkbox-test"/>
-            {/* <button onClick={allToComplete} className="input-button">﹀</button> */}
             <form onSubmit={handleSubmit}>
                 <input
                     className="new-todo"
@@ -41,8 +40,6 @@ export default function TodoInput({ allToComplete }) {
                     onChange={(e) => setName(e.target.value)}
                 />
              </form>
-            
-            {/* <input className="new-todo" placeholder="What needs to be done ?" type="text" onKeyDown={handleKeydown} onChange={onChange} value={inputValue} data-testid="input-keydown"/> */}
         </div>
     )
 }

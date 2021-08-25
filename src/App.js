@@ -10,34 +10,12 @@ import { CHANGE_ALL_COMPLETE, CLEAR_COMPLETED, DELETE_TODOS, EDIT_TODO } from '.
 
 const selectTodos = todos => todos
 
-const TODOS_LOCAL_STORAGE_KEY = "todoList.todos";
-
 function App() {
 
-  // const [todos, setTodos] = useState([]); 
   const todos = useSelector(selectTodos);
-  // console.log(todos)
   const [displayTodos, setDisplayTodos] = useState(todos)
   const dispatch = useDispatch();
 
-  //get: 只get一次，因此dependency为：[]，因为[]永远不变
-  useEffect(() => {
-    const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
-    // console.log(storedTodos)
-    // setTodos(storedTodos)
-    setDisplayTodos(storedTodos)
-  }, [])
-
-  //local.storage: todos
-  //set: 每次更新都需要set一次，因此dependency为：[todos]
-  useEffect(() => {
-    //  localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
-    localStorage.setItem(TODOS_LOCAL_STORAGE_KEY, JSON.stringify(todos))
-    setDisplayTodos(todos)
-    console.log(todos)
-  },[todos])
-
-  //清除已完成
   const handleClearCompleted = () => {
     dispatch({
       type:CLEAR_COMPLETED
@@ -45,7 +23,6 @@ function App() {
     setDisplayTodos(newTodos)
   }
 
-  //全部标记已完成/未完成
   const allToComplete = (isChecked) => {
     dispatch({
       type:CHANGE_ALL_COMPLETE,
@@ -70,10 +47,8 @@ function App() {
     setDisplayTodos(newTodos)
   }
 
-
   return (
     <div className="App">
-      {/* <ErrorBoundary> */}
         <Header />
         <TodoInput
           allToComplete={allToComplete}
@@ -88,8 +63,6 @@ function App() {
           handleClearCompleted={handleClearCompleted}
         />
         <Footer />
-      {/* </ErrorBoundary> */}
-
     </div>
   );
 }

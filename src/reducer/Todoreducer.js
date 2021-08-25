@@ -7,11 +7,9 @@ import {
   CLEAR_COMPLETED
 } from '../Actions/ActionTypes'
 
-
 const initialState = [];
 
 const reducer = (todos = initialState, action) =>  {
-  // console.log(todos)
   switch (action.type) {
     case ADD_TODOS:
       return [...todos, newTodos(action.payload.name)];
