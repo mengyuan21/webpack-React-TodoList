@@ -12,7 +12,7 @@ export default function Todo({ todo }) {
         dispatch({
             type:TOGGLE_TODOS,
             payload:{
-                id
+                id:todo.id
             }
         })
     }
