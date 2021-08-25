@@ -24,7 +24,6 @@ export default function TodoInput({ allToComplete }) {
             name
           }
         })
-        console.log(name)
         setName("");
       }
 
