@@ -2,21 +2,21 @@ import * as ACTIONS from './ActionTypes'
 
 export const addTodo = name => ({
     type:ACTIONS.ADD_TODOS,
-    payload:{
+    payload: {
         name
     }   
 })
 
 export const deleteTodo = id => ({
     type: ACTIONS.DELETE_TODOS,
-    payload:{
+    payload: {
         id
     }
 })
 
 export const editTodo = (id, text) => ({
     type:ACTIONS.EDIT_TODO,
-    payload:{
+    payload: {
         id,
         text
     }
@@ -24,7 +24,7 @@ export const editTodo = (id, text) => ({
 
 export const toggleTodo = (id) => ({
     type: ACTIONS.TOGGLE_TODOS,
-    payload:{
+    payload: {
         id
     }
 })
