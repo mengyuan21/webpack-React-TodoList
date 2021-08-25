@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import "./Todo.css";
 import { useDispatch } from 'react-redux';
-import { DELETE_TODOS, TOGGLE_TODOS } from '../../../Actions/ActionTypes';
+import { DELETE_TODOS, TOGGLE_TODOS, EDIT_TODO } from '../../../Actions/ActionTypes';
 
 export default function Todo({ todo }) {
 

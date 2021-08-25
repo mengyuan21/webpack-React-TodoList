@@ -16,14 +16,14 @@ function App() {
 
   // const [todos, setTodos] = useState([]); 
   const todos = useSelector(selectTodos);
-  console.log(todos)
+  // console.log(todos)
   const [displayTodos, setDisplayTodos] = useState(todos)
   const dispatch = useDispatch();
 
   //get: 只get一次，因此dependency为：[]，因为[]永远不变
   useEffect(() => {
     const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
-    console.log(storedTodos)
+    // console.log(storedTodos)
     // setTodos(storedTodos)
     setDisplayTodos(storedTodos)
   }, [])
@@ -34,8 +34,8 @@ function App() {
     //  localStorage.setItem(TODOS_LOCAL_STORAGE_KEY ,JSON.stringify(todos))
     localStorage.setItem(TODOS_LOCAL_STORAGE_KEY, JSON.stringify(todos))
     setDisplayTodos(todos)
+    console.log(todos)
   },[todos])
-
 
   //清除已完成
   const handleClearCompleted = () => {
