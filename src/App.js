@@ -35,16 +35,16 @@ function App() {
     })
   }
 
-  const getTodosType = (todoType) => {
-    switch(todoType){
-      case "all" :
-        return todos;
-      case "active":
-        return activeTodos;
-      case "complete":
-        return completedTodos;    
-    }
-  }
+  // const getTodosType = (todoType) => {
+  //   switch(todoType){
+  //     case "all" :
+  //       return todos;
+  //     case "active":
+  //       return activeTodos;
+  //     case "complete":
+  //       return completedTodos;    
+  //   }
+  // }
 
   const handler = (todoTypeToBeDisplayed) => {
     setTodoType(todoTypeToBeDisplayed)

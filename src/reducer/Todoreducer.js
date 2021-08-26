@@ -9,7 +9,7 @@ import {
 
 const initialState = [];
 
-const reducer = (todos = initialState, action) =>  {
+const todoReducer = (todos = initialState, action) =>  {
   switch (action.type) {
     case ADD_TODOS:
       return [...todos, newTodos(action.payload.name)];
@@ -39,8 +39,8 @@ const reducer = (todos = initialState, action) =>  {
           complete: action.payload.isChecked
         }))  
 
-    case CLEAR_COMPLETED:
-      return todos.filter(todo => !todo.complete)
+      case CLEAR_COMPLETED:
+        return todos.filter(todo => !todo.complete)
     default:
       return todos
   }
@@ -55,4 +55,4 @@ const newTodos = (name) => {
   }
 }
 
-export default reducer;
+export default todoReducer;
