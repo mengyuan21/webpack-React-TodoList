@@ -12,8 +12,6 @@ const selectTodos = todos => todos
 const getCompletedTodosA = todos => todos.filter(todo => todo.complete)
 const getActiveTodosA = todos => todos.filter(todo => !todo.complete)
 
-const TODOS_LOCAL_STORAGE_KEY = "todoList.todos";
-
 function App() {
 
   const completedTodos = useSelector(getCompletedTodosA)
@@ -21,14 +19,6 @@ function App() {
   const todos = useSelector(selectTodos);
   const [todoType, setTodoType] = useState('all')
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const storedTodos = JSON.parse(localStorage.getItem(TODOS_LOCAL_STORAGE_KEY))
-  // }, [])
-
-  // useEffect(() => {
-  //   localStorage.setItem(TODOS_LOCAL_STORAGE_KEY, JSON.stringify(todos))
-  // },[todos])
 
   const handleClearCompleted = () => {
     dispatch({
@@ -57,12 +47,9 @@ function App() {
   }
 
   const handler = (todoTypeToBeDisplayed) => {
-    console.log("dsadsadasddsad");
-    console.log(todoTypeToBeDisplayed);
     setTodoType(todoTypeToBeDisplayed)
   }
  
-
   return (
     <div className="App">
         <Header />

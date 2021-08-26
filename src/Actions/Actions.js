@@ -36,3 +36,10 @@ export const allToComplete = () => ({
 export const  clearCompleted = () => ({
     type: ACTIONS.CLEAR_COMPLETED,
 })
+
+export const setVisibilityFilter = filter => ({
+    type: ACTIONS.SET_VISIBILITY_FILTER,
+    payload : {
+        filter
+    }
+})
