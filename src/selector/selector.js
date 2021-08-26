@@ -4,18 +4,11 @@ import visibilityFilter from '../reducer/visibilityFilter'
 
 const getVisibilityFilter = state => state.visibilityFilter
 const getTodos = state => state.todoReducer
-// export const getActiveNum = state => {
-//   const allTodos = getTodos(state)
-//   const name = allTodos.filter(todo => !todo.complete).length
-//   return name
-// }
 
 export const getActiveNum = createSelector(
   getTodos,
   (allTodos) => allTodos.filter(todo => !todo.complete).length
 )
-
-// todos.filter(todo => !todo.complete).length
 
 const getTodosByType = createSelector(
     getVisibilityFilter,
