@@ -1,5 +1,6 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
+import getTodosByType from './selector/selector';
 import Header from './Components/Header/Header';
 import TodoItems from './Components/TodoItems/TodoItems';
 import Footer from './Components/Footer/Footer';
@@ -13,6 +14,8 @@ const getCompletedTodosA = todos => todos.filter(todo => todo.complete)
 const getActiveTodosA = todos => todos.filter(todo => !todo.complete)
 
 function App() {
+
+  const filterTodos = useSelector(getTodosByType)
 
   const completedTodos = useSelector(getCompletedTodosA)
   const activeTodos = useSelector(getActiveTodosA)
@@ -35,16 +38,16 @@ function App() {
     })
   }
 
-  // const getTodosType = (todoType) => {
-  //   switch(todoType){
-  //     case "all" :
-  //       return todos;
-  //     case "active":
-  //       return activeTodos;
-  //     case "complete":
-  //       return completedTodos;    
-  //   }
-  // }
+  const getTodosType = (todoType) => {
+    switch(todoType){
+      case "all" :
+        return todos;
+      case "active":
+        return activeTodos;
+      case "complete":
+        return completedTodos;    
+    }
+  }
 
   const handler = (todoTypeToBeDisplayed) => {
     setTodoType(todoTypeToBeDisplayed)
@@ -57,7 +60,7 @@ function App() {
           allToComplete={allToComplete}
         />
         <TodoItems
-          displayTodos={getTodosType(todoType)}
+          displayTodos={filterTodos}
         />
         <TodoFilter
           handler={handler}

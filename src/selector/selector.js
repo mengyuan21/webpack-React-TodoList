@@ -1,7 +1,12 @@
 import * as ACTIONS from '../Actions/TodoFilters'
 import { createSelector } from 'reselect'
 
-const getTodosByType = createSelector(() => {
+const getVisibilityFilter = todos => todos.visibilityFilter
+const getTodos = todos => todos
+
+const getTodosByType = createSelector(
+    [getVisibilityFilter, getTodos],
+    (todos) => {
     switch(actions.type){
       case ACTIONS.SHOW_ALL:
         return todos;
