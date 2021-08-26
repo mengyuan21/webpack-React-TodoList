@@ -9,18 +9,11 @@ import TodoFilter from './Components/TodoFilter/TodoFilter';
 import { useSelector, useDispatch } from 'react-redux';
 import { CHANGE_ALL_COMPLETE, CLEAR_COMPLETED } from './Actions/ActionTypes';
 
-const selectTodos = todos => todos
-const getCompletedTodosA = todos => todos.filter(todo => todo.complete)
-const getActiveTodosA = todos => todos.filter(todo => !todo.complete)
+
 
 function App() {
 
   const filterTodos = useSelector(getTodosByType)
-
-  const completedTodos = useSelector(getCompletedTodosA)
-  const activeTodos = useSelector(getActiveTodosA)
-  const todos = useSelector(selectTodos);
-  const [todoType, setTodoType] = useState('all')
   const dispatch = useDispatch();
 
   const handleClearCompleted = () => {
@@ -38,21 +31,6 @@ function App() {
     })
   }
 
-  const getTodosType = (todoType) => {
-    switch(todoType){
-      case "all" :
-        return todos;
-      case "active":
-        return activeTodos;
-      case "complete":
-        return completedTodos;    
-    }
-  }
-
-  const handler = (todoTypeToBeDisplayed) => {
-    setTodoType(todoTypeToBeDisplayed)
-  }
- 
   return (
     <div className="App">
         <Header />
@@ -63,7 +41,6 @@ function App() {
           displayTodos={filterTodos}
         />
         <TodoFilter
-          handler={handler}
           handleClearCompleted={handleClearCompleted}
         />
         <Footer />

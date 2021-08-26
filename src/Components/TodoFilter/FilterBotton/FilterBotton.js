@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { SET_VISIBILITY_FILTER } from "../../../Actions/ActionTypes";
+import { SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } from '../../../Actions/TodoFilters';
 
+ 
 const Button = styled.button`
 position: relative;
 left: 10px;
@@ -18,15 +22,23 @@ background-color: white;
 }
 `;
 
-export default function FilterBotton({handler}) {
+
+export default function FilterBotton( ) {
+    
+    const dispatch = useDispatch();
+
+    const changeVisibilityFilter = (filter) => {{
+        dispatch ({
+            type:SET_VISIBILITY_FILTER,
+            filter
+        }) 
+    }}
 
     return (
         <div className="filter-buttons" >
-                <Button data-testid="filter-button" onClick={() => handler("all")} > All </Button>
-                <Button onClick={() => handler("active")} > Active </Button>
-                <Button onClick={() => handler("complete")} > Completed </Button>
+                <Button data-testid="filter-button" onClick={() => changeVisibilityFilter(SHOW_ALL)} > All </Button>
+                <Button onClick={() => changeVisibilityFilter(SHOW_ACTIVE)} > Active </Button>
+                <Button onClick={() => changeVisibilityFilter(SHOW_COMPLETED)} > Completed </Button>
         </div>  
     )
-
-
 }
