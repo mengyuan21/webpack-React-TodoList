@@ -1,10 +1,15 @@
 import React from 'react';
 import Todo from './Todo/Todo';
+import { useSelector} from 'react-redux';
+import getTodosByType from '../../selector/selector';
 
-export default function TodoItems({ displayTodos }) {
+
+export default function TodoItems() {
     
+    const filterTodos = useSelector(getTodosByType)
+
     return (
-        displayTodos.map(todo => {
+        filterTodos.map(todo => {
             return (
             <Todo key={todo.id}  todo={todo}/>
             )
