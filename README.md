@@ -100,6 +100,114 @@
   - 允许用户从NPM服务器下载并安装别人编写的命令行程序到本地使用。
   - 允许用户将自己编写的包或命令行程序上传到NPM服务器供别人使用。
 
+
+
+
+##  Redux - createSelector
+### How to use createSelector
+```js
+
+import { createSelector } from 'reselect'
+
+const shopItemsSelector = state => state.shop.items
+const taxPercentSelector = state => state.shop.taxPercent
+
+const subtotalSelector = createSelector(
+  shopItemsSelector,
+  items => items.reduce((subtotal, item) => subtotal + item.value, 0)
+)
+
+const taxSelector = createSelector(
+  subtotalSelector,
+  taxPercentSelector,
+  (subtotal, taxPercent) => subtotal * (taxPercent / 100)
+)
+
+const totalSelector = createSelector(
+  subtotalSelector,
+  taxSelector,
+  (subtotal, tax) => ({ total: subtotal + tax })
+)
+
+const exampleState = {
+  shop: {
+    taxPercent: 8,
+    items: [
+      { name: 'apple', value: 1.20 },
+      { name: 'orange', value: 0.95 },
+    ]
+  }
+}
+
+console.log(subtotalSelector(exampleState)) // 2.15
+console.log(taxSelector(exampleState))      // 0.172
+console.log(totalSelector(exampleState))    // { total: 2.322 }
+
+
+```
+
+
+## 引用类型和值类型的区别
+### 1. 值类型 
+1. 值类型都有什么 ？（基本类型）： 
+字符串（string）、数值（number）、布尔值（boolean）、undefined、null
+
+2. 值类型的特点 ？ 
++ 占用空间固定，保存在栈中；
++ 保存与复制的是值本身；
++ 使用typeof检测数据的类型；
++ 基本类型数据是值类型；
+
+### 2. 引用类型
+1. 引用类型都有什么 ？
+对象（Object）、数组（Array）、函数（Function）
+
+2. 引用类型的特点 ？
++ 占用空间不固定，保存在堆中
+（当我们在程序中创建一个对象时，这个对象将被保存到运行时数据区中，以便反复利用（因为对象的创建成本通常较大），这个运行时数据区就是堆内存。堆内存中的对象不会随方法的结束而销毁，即使方法结束后，这个对象还可能被另一个引用变量所引用（方法的参数传递时很常见），则这个对象依然不会被销毁，只有当一个对象没有任何引用变量引用它时，系统的垃圾回收机制才会在核实的时候回收它。）
++ 保存与复制的是指向对象的一个指针
++ 使用instanceof检测数据类型
++ 使用new()方法构造出的对象是引用型
+
+### 3. 实例
+
+```js
+// 值类型：Number、string、bollean、undefined
+var a = 100
+var b = a
+a = 200
+console.log(b) // 100 保存与复制的是值本身
+
+
+// 引用类型：对象、数组、函数、null(空指针)
+// 可以扩展属性
+var a = {age:20}
+var b = a
+b.age = 21 
+console.log(a.age) // 21 
+
+// 利用typeof来区分
+typeof undefined // undefined
+typeof 'abc' // string
+typeof 123 // number
+typeof true // boolean
+
+// typeof 区分不出来引用类型（除了函数）
+typeof {} // object
+typeof [] // object
+typeof null // object
+typeof console.log //function
+
+// 用instanceof来区分引用类型
+// 如果变量是给定引用类型（根据它的原型链来识别）的实例，那么instanceof 操作符就会返回 true。
+console.log(person instanceof Object); // 变量 person 是 Object 吗？
+
+console.log(colors instanceof Array); // 变量 colors 是 Array 吗？
+
+console.log(pattern instanceof RegExp); // 变量 pattern 是 RegExp 吗？
+```
+
+
 # Jest
 
 ## JSDOM 
@@ -307,111 +415,6 @@ expect(mockFunc.mock.calls[mockFunc.mock.calls.length - 1][0]).toBe(42);
 // in the same order, with the same arguments. It will also assert on the name.
 expect(mockFunc.mock.calls).toEqual([[arg1, arg2]]);
 expect(mockFunc.getMockName()).toBe('a mock name');
-
-```
-
-
-## 引用类型和值类型的区别
-### 1. 值类型 
-1. 值类型都有什么 ？（基本类型）： 
-字符串（string）、数值（number）、布尔值（boolean）、undefined、null
-
-2. 值类型的特点 ？ 
-+ 占用空间固定，保存在栈中；
-+ 保存与复制的是值本身；
-+ 使用typeof检测数据的类型；
-+ 基本类型数据是值类型；
-
-### 2. 引用类型
-1. 引用类型都有什么 ？
-对象（Object）、数组（Array）、函数（Function）
-
-2. 引用类型的特点 ？
-+ 占用空间不固定，保存在堆中
-（当我们在程序中创建一个对象时，这个对象将被保存到运行时数据区中，以便反复利用（因为对象的创建成本通常较大），这个运行时数据区就是堆内存。堆内存中的对象不会随方法的结束而销毁，即使方法结束后，这个对象还可能被另一个引用变量所引用（方法的参数传递时很常见），则这个对象依然不会被销毁，只有当一个对象没有任何引用变量引用它时，系统的垃圾回收机制才会在核实的时候回收它。）
-+ 保存与复制的是指向对象的一个指针
-+ 使用instanceof检测数据类型
-+ 使用new()方法构造出的对象是引用型
-
-### 3. 实例
-
-```js
-// 值类型：Number、string、bollean、undefined
-var a = 100
-var b = a
-a = 200
-console.log(b) // 100 保存与复制的是值本身
-
-
-// 引用类型：对象、数组、函数、null(空指针)
-// 可以扩展属性
-var a = {age:20}
-var b = a
-b.age = 21 
-console.log(a.age) // 21 
-
-// 利用typeof来区分
-typeof undefined // undefined
-typeof 'abc' // string
-typeof 123 // number
-typeof true // boolean
-
-// typeof 区分不出来引用类型（除了函数）
-typeof {} // object
-typeof [] // object
-typeof null // object
-typeof console.log //function
-
-// 用instanceof来区分引用类型
-// 如果变量是给定引用类型（根据它的原型链来识别）的实例，那么instanceof 操作符就会返回 true。
-console.log(person instanceof Object); // 变量 person 是 Object 吗？
-
-console.log(colors instanceof Array); // 变量 colors 是 Array 吗？
-
-console.log(pattern instanceof RegExp); // 变量 pattern 是 RegExp 吗？
-```
-
-
-##  Redux - createSelector
-### How to use createSelector
-```js
-
-import { createSelector } from 'reselect'
-
-const shopItemsSelector = state => state.shop.items
-const taxPercentSelector = state => state.shop.taxPercent
-
-const subtotalSelector = createSelector(
-  shopItemsSelector,
-  items => items.reduce((subtotal, item) => subtotal + item.value, 0)
-)
-
-const taxSelector = createSelector(
-  subtotalSelector,
-  taxPercentSelector,
-  (subtotal, taxPercent) => subtotal * (taxPercent / 100)
-)
-
-const totalSelector = createSelector(
-  subtotalSelector,
-  taxSelector,
-  (subtotal, tax) => ({ total: subtotal + tax })
-)
-
-const exampleState = {
-  shop: {
-    taxPercent: 8,
-    items: [
-      { name: 'apple', value: 1.20 },
-      { name: 'orange', value: 0.95 },
-    ]
-  }
-}
-
-console.log(subtotalSelector(exampleState)) // 2.15
-console.log(taxSelector(exampleState))      // 0.172
-console.log(totalSelector(exampleState))    // { total: 2.322 }
-
 
 ```
 
