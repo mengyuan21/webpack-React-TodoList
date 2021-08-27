@@ -14,35 +14,15 @@ import { CHANGE_ALL_COMPLETE, CLEAR_COMPLETED } from './Actions/ActionTypes';
 function App() {
 
   const filterTodos = useSelector(getTodosByType)
-  const dispatch = useDispatch();
-
-  const handleClearCompleted = () => {
-    dispatch({
-      type:CLEAR_COMPLETED
-    })
-  }
-
-  const allToComplete = (isChecked) => {
-    dispatch({
-      type:CHANGE_ALL_COMPLETE,
-      payload:{
-        isChecked
-      }
-    })
-  }
 
   return (
     <div className="App">
         <Header />
-        <TodoInput
-          allToComplete={allToComplete}
-        />
+        <TodoInput/>
         <TodoItems
           displayTodos={filterTodos}
         />
-        <TodoFilter
-          handleClearCompleted={handleClearCompleted}
-        />
+        <TodoFilter/>
         <Footer />
     </div>
   );

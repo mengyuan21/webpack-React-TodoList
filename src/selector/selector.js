@@ -1,13 +1,14 @@
 import * as TODOFILTERTYPE from '../Actions/TodoFilters'
 import { createSelector } from 'reselect'
-import visibilityFilter from '../reducer/visibilityFilter'
 
+
+const getActiveTodos = (todos) => todos.filter(todo => !todo.complete)
+const getCompleteTodos = (todos) => todos.filter(todo => todo.complete)
 const getVisibilityFilter = state => state.visibilityFilter
 const getTodos = state => state.todoReducer
-
 export const getActiveNum = createSelector(
   getTodos,
-  (allTodos) => allTodos.filter(todo => !todo.complete).length
+  (allTodos) => getActiveTodos(allTodos).length
 )
 
 const getTodosByType = createSelector(
@@ -18,10 +19,9 @@ const getTodosByType = createSelector(
       case TODOFILTERTYPE.SHOW_ALL:
         return todos;
       case TODOFILTERTYPE.SHOW_ACTIVE:
-        console.log(todos);
-        return todos.filter(todo => !todo.complete);
+        return getActiveTodos(todos);
       case TODOFILTERTYPE.SHOW_COMPLETED:
-        return todos.filter(todo => todo.complete);    
+        return getCompleteTodos(todos);    
       default:
           throw new Error('Something wrong with filter')  
     }
