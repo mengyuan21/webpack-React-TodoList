@@ -1,4 +1,4 @@
-import * as TODOFILTERTYPE from '../Actions/TodoFilters'
+import * as TODOFILTERTYPE from '../Utils'
 import { createSelector } from 'reselect'
 
 

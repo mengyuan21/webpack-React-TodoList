@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { SET_VISIBILITY_FILTER } from "../../../Actions/ActionTypes";
-import { SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } from '../../../Actions/TodoFilters';
+import { SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED } from '../../../Utils';
 
  
 const Button = styled.button`
